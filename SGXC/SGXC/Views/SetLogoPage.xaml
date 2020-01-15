@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+xmlns:imageeditor="clr-namespace:Syncfusion.SfImageEditor.XForms;assembly=Syncfusion.SfImageEditor.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:converter="clr-namespace:SGXC.Converters"
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:behaviours="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SGXC.Views.SetLogoPage"
+             x:Name="LogoPage"
+             BackgroundColor="{DynamicResource Gray-Black}"
+             NavigationPage.HasNavigationBar="False"
+             Style="{StaticResource ContentPageStyle}"
+             Shell.NavBarIsVisible="False">
+
+    <!--Dictionary-->
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanToColorConverter x:Key="ColorConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!--General Layout-->
+    
+
+        <Grid Padding="10,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+            
+    <!--Image editor-->
+          <StackLayout 
+              Grid.Row="0" 
+              Orientation="Vertical" 
+              VerticalOptions="CenterAndExpand" 
+              HorizontalOptions="FillAndExpand">
+
+        <control:CustomShadowFrame 
+            Padding="0"
+            BackgroundColor="{DynamicResource Gray-Black}"
+            BorderColor="{DynamicResource PrimaryColor}"
+            CornerRadius="4"
+            HasShadow="True"
+            HeightRequest="250">           
+
+            <border:SfBorder
+                HorizontalOptions="Center"
+                VerticalOptions="FillAndExpand">
+                <badge:SfBadgeView 
+                    HorizontalOptions="End"
+                    VerticalOptions="Center"
+                    BadgeText="&#xe148;">
+                        <badge:SfBadgeView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LoadImageCommand}"/>
+                        </badge:SfBadgeView.GestureRecognizers>
+                        <badge:SfBadgeView.BadgeSettings>
+                            <badge:BadgeSetting 
+                                FontFamily="{StaticResource MaterialIcons}"
+                                FontSize="32"
+                                BadgePosition="BottomRight"
+                                TextColor="{DynamicResource Gray-White}"/>
+                        </badge:SfBadgeView.BadgeSettings>
+                        <badge:SfBadgeView.Content>
+                            <imageeditor:SfImageEditor 
+                                x:Name="editor"
+                                HorizontalOptions="FillAndExpand" 
+                                VerticalOptions="FillAndExpand"
+                                Source="{Binding TeamLogo}">
+                                <imageeditor:SfImageEditor.Behaviors>
+                                    <behaviours:EventToCommandBehavior 
+                                        EventName="ImageSaved"
+                                        Command="{Binding ImageSavedCommand}"                                                                           EventArgsParameterPath="Location"/>
+                                </imageeditor:SfImageEditor.Behaviors>
+                            </imageeditor:SfImageEditor>
+                        </badge:SfBadgeView.Content>
+                </badge:SfBadgeView>
+            </border:SfBorder>
+        </control:CustomShadowFrame>
+    </StackLayout>
+
+    <!--Team Name Entry-->
+
+    <StackLayout Grid.Row="1">
+    <border:SfBorder
+        
+                BorderColor="{Binding Source={x:Reference NameEntry}, Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}"
+                Style="{StaticResource FormBorderStyle}">
+
+            <control:BorderlessEntry
+                    
+                    Text="{Binding TeamName}"
+                    x:Name="NameEntry"
+                    Placeholder="Team Name"
+                    Style="{StaticResource EntryTextStyle}" />
+
+        </border:SfBorder>
+    </StackLayout>
+    <!--save button--> 
+    <StackLayout Grid.Row="3">
+            <buttons:SfButton
+                CornerRadius="20"
+                Style="{StaticResource SfButtonStyle}"
+                Command="{Binding SaveCommand}">
+                <buttons:SfButton.Content>
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                        <Label Style="{StaticResource ButtonLabelStyle}" 
+                                   Text="Save settings"></Label>
+                    </StackLayout>
+                </buttons:SfButton.Content>
+            </buttons:SfButton>
+        </StackLayout>
+            
+        <!--Ads-->
+        <StackLayout
+            Padding="0"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand">
+            <control:AdMobView WidthRequest="320" HeightRequest="50" />
+        </StackLayout>
+    </Grid>    
+</ContentPage>

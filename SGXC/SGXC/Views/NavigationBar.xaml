@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:popuplayout="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:helper="clr-namespace:SGXC.Helpers"
+             xmlns:prismNav="clr-namespace:Prism.Navigation.Xaml;assembly=Prism.Forms"
+             xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             x:Class="SGXC.Views.NavigationBar">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <StackLayout          
+        Padding="0"
+        helper:RTLHelper.Margin="0,0,0,0"
+        Orientation="Horizontal"
+        Spacing="0">
+        <badge:SfBadgeView HorizontalOptions="End" VerticalOptions="Center">
+            <badge:SfBadgeView.Content>
+                <buttons:SfButton
+                    Clicked="clickToShowPopup_Clicked"
+                    TextColor="{DynamicResource Gray-White}"
+                    FontSize="18"
+                    FontFamily="{StaticResource MaterialIcons}"
+                    BackgroundColor="{DynamicResource PrimaryColor}"
+                    Text="&#xe8fe;"
+                    Margin="0,0,0,0"/>
+            </badge:SfBadgeView.Content>
+        </badge:SfBadgeView>
+
+
+        <popuplayout:SfPopupLayout x:Name="popup">            
+            <popuplayout:SfPopupLayout.PopupView>
+                <popuplayout:PopupView                     
+                    ShowFooter="False"
+                    ShowHeader="False"
+                    AutoSizeMode="Both"
+                    AnimationMode="SlideOnLeft"
+                    AnimationDuration="200"
+                    BackgroundColor="White"
+                    Opacity="0.5"
+                    AnimationEasing="SinInOut">
+                    <popuplayout:PopupView.PopupStyle>                        
+                        <popuplayout:PopupStyle CornerRadius="0"/>
+                    </popuplayout:PopupView.PopupStyle>
+                    
+                    <popuplayout:PopupView.ContentTemplate>
+                        <DataTemplate>
+                            <Grid 
+                                x:Name="grid" 
+                                RowSpacing="1" 
+                                BackgroundColor="{DynamicResource Gray-White}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <!--Logo and name-->                                
+                                    
+                                    <StackLayout 
+                                        Padding="10,10,0,10"
+                                        Margin="0,0,-10,0"
+                                        Orientation="Horizontal"
+                                        Grid.Row="0"
+                                        BackgroundColor="{DynamicResource PrimaryColor}">
+                                        <Image                                            
+                                            Aspect="AspectFit"
+                                            HeightRequest="35"
+                                            WidthRequest="35" 
+                                            Source="{Binding TeamLogo}">
+                                        </Image>
+
+                                        <Label 
+                                            Text="{Binding TeamName}"
+                                            TextColor="{DynamicResource Gray-White}"
+                                            FontFamily="{DynamicResource Montserrat-Medium}"
+                                            FontSize="12"
+                                            LineBreakMode="CharacterWrap"
+                                            Style="{StaticResource EntryTextStyle}"/>
+                                    </StackLayout>   
+                                
+                                
+                                <!--Home button-->
+                                <control:CustomShadowFrame Style="{StaticResource CustomShadowFrame}"
+                                                           Grid.Row="1"
+                                                           BackgroundColor="{DynamicResource Gray-White}">                                    
+                                    <control:CustomShadowFrame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{prismNav:NavigateTo '/MainPage'}" />
+                                    </control:CustomShadowFrame.GestureRecognizers>
+                                    
+                                <StackLayout Orientation="Horizontal">
+
+                                        <Label 
+                                            FontFamily="{DynamicResource MaterialIcons}"
+                                            HorizontalTextAlignment="Center"
+                                            LineBreakMode="NoWrap"
+                                            Text="&#xe88a;" 
+                                            TextColor="{DynamicResource Gray-Black}"
+                                            FontSize="Medium">                                            
+                                        </Label>
+                                    
+                                        <Label
+                                            FontFamily="{DynamicResource Montserrat-Medium}"
+                                            FontSize="12"
+                                            LineBreakMode="TailTruncation"
+                                            MaxLines="2"
+                                            HorizontalOptions="End"     
+                                            HorizontalTextAlignment="End"
+                                            Text="Home"
+                                            TextColor="{DynamicResource Gray-Black}" />                                    
+                                </StackLayout>
+                            </control:CustomShadowFrame>
+                                
+                                <!--Event button-->
+                                
+                                <control:CustomShadowFrame Style="{StaticResource CustomShadowFrame}"
+                                                           BackgroundColor="{DynamicResource Gray-White}"
+                                                           Grid.Row="2">
+                                    
+                                <control:CustomShadowFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{prismNav:NavigateTo 'EventsPage'}" />
+                                </control:CustomShadowFrame.GestureRecognizers>
+                                    
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        FontFamily="{DynamicResource MaterialIcons}"
+                                        HorizontalTextAlignment="Center"
+                                        LineBreakMode="NoWrap"
+                                        Text="&#xe916;" 
+                                        TextColor="{DynamicResource Gray-Black}"
+                                        FontSize="Medium" />
+                                    <Label
+                                        FontFamily="{DynamicResource Montserrat-Medium}"
+                                        FontSize="12"
+                                        HorizontalOptions="End"     
+                                        HorizontalTextAlignment="End"
+                                        Text="Events"
+                                        TextColor="{DynamicResource Gray-Black}" />
+                                </StackLayout>
+                            </control:CustomShadowFrame>
+                                
+                                <!--Runner button-->
+                                
+                                <control:CustomShadowFrame Style="{StaticResource CustomShadowFrame}"
+                                                           BackgroundColor="{DynamicResource Gray-White}"
+                                                           Grid.Row="3">
+                                    
+                                <control:CustomShadowFrame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{prismNav:NavigateTo 'RunnerPage'}" />
+                                </control:CustomShadowFrame.GestureRecognizers>
+                                    
+                                <StackLayout Orientation="Horizontal">
+                                    <Label
+                                        FontFamily="{DynamicResource MaterialIcons}"
+                                        HorizontalTextAlignment="Center"
+                                        LineBreakMode="NoWrap"
+                                        Text="&#xe566;" 
+                                        TextColor="{DynamicResource Gray-Black}"
+                                        FontSize="Medium" />
+                                    <Label
+                                        FontFamily="{DynamicResource Montserrat-Medium}"
+                                        FontSize="12"
+                                        HorizontalOptions="End"     
+                                        HorizontalTextAlignment="End"
+                                        Text="Runners"
+                                        TextColor="{DynamicResource Gray-Black}" />
+                                </StackLayout>
+
+
+
+
+                            </control:CustomShadowFrame>
+
+                            </Grid>
+                        </DataTemplate>
+                    </popuplayout:PopupView.ContentTemplate>
+                </popuplayout:PopupView>
+            </popuplayout:SfPopupLayout.PopupView>
+        </popuplayout:SfPopupLayout>
+    </StackLayout>
+</ContentView>

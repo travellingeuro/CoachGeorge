@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:popuplayout="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
+             xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             xmlns:converter="clr-namespace:SGXC.Converters"            
+             xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
+             xmlns:behaviours="clr-namespace:SGXC.Behaviours"
+             xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:views="clr-namespace:SGXC.Views"
+             BackgroundColor="{DynamicResource Gray-Black}"
+             NavigationPage.HasNavigationBar="False"    
+             Shell.NavBarIsVisible="False"
+             x:Name="EventPage"             
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SGXC.Views.EventsPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <converter:BooleanToColorConverter x:Key="BooleanToColorConverter" />
+            <converter:BooleanToTextConverter x:Key="BooleanToTextConverter"
+                                              TrueText="&#xe0bc;"
+                                              FalseText="&#xe566;"/>
+            <converter:BooleanToGroupHeaderConverter x:Key="BooleantoHeaderConverter"/>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+
+        <StackLayout Padding="0,25,0,10">
+            <!--Title-->
+            <control:TitleView                     
+                    BackgroundColor="{DynamicResource PrimaryColor}">
+                <control:TitleView.LeadingView>
+                    <views:GoBackButton />
+                </control:TitleView.LeadingView>
+                <control:TitleView.Content>
+                    <Label
+                        Style="{StaticResource LabelStyle}" 
+                        Text="Events"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Padding="0,8,0,0"/>
+                </control:TitleView.Content>
+                <control:TitleView.TrailingView>
+                    <views:NavigationBar  prism:ViewModelLocator.AutowirePartialView="{x:Reference EventPage}" />
+                </control:TitleView.TrailingView>
+            </control:TitleView>
+
+            <!--Busy Indicator-->
+
+            <StackLayout HorizontalOptions="Center" WidthRequest="120">
+                <busyindicator:SfBusyIndicator  
+                                              AnimationType="ECG"
+                                              ViewBoxHeight="50"
+                                              ViewBoxWidth="50"
+                                              EnableAnimation="True"
+                                              Duration="100"
+                                              Title="Loading events..."
+                                              TextColor="{DynamicResource PrimaryColor}"
+                                              IsVisible="{Binding IsBusy}" 
+                                              IsBusy="{Binding IsBusy}" />
+            </StackLayout>
+
+            <!--Emptylist announcement-->
+            <Label
+                IsVisible="{Binding IsEventEmpty}"
+                Style="{StaticResource LabelStyle}" 
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Text="No Events yet. Add a new one"
+                LineBreakMode="TailTruncation"
+                MaxLines="2"
+                Padding="0,8,0,0"/>
+
+            <ScrollView>
+                <listview:SfListView 
+                    x:Name="evenlist" 
+                    ItemsSource="{Binding EventList}"
+                    ItemSpacing="10"
+                    ItemSize="80"
+                    AllowGroupExpandCollapse="True"
+                    GroupExpanding="evenlist_GroupExpanding"
+                    Loaded="evenlist_Loaded"
+                    behaviours:ItemTappedCommandListView.ItemTappedCommand="{Binding MenuItemSelectedCommand}">
+                    <listview:SfListView.DataSource>
+                        <data:DataSource>
+                            <data:DataSource.GroupDescriptors>
+                                <data:GroupDescriptor PropertyName="IsRan"/>
+                            </data:DataSource.GroupDescriptors>
+                        </data:DataSource>
+                    </listview:SfListView.DataSource>
+                    <listview:SfListView.GroupHeaderTemplate>
+                        <DataTemplate x:Name="GroupHeaderTemplate">
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <border:SfBorder CornerRadius="64" >
+                                        <Grid BackgroundColor="{DynamicResource PrimaryColor}" VerticalOptions="Center" HeightRequest="86">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <Label Margin="10,0,0,0"
+                                               Text="{Binding Key,Converter={x:StaticResource BooleantoHeaderConverter}}"
+                                               TextColor="{DynamicResource Gray-White}"
+                                               Style="{StaticResource LabelStyle}" VerticalTextAlignment="Center"/>
+                                            <Label
+                                            Grid.Column="2"
+                                            Margin="0"
+                                            FontFamily="{StaticResource FontIcons}"
+                                            FontSize="25"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{StaticResource DropDownButtonIcon}"
+                                            TextColor="{DynamicResource Gray-600}"
+                                            VerticalTextAlignment="Center" />
+                                        </Grid>
+                                    </border:SfBorder>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </listview:SfListView.GroupHeaderTemplate>
+                    <listview:SfListView.ItemTemplate>
+                        <DataTemplate>
+                            <popuplayout:SfPopupLayout 
+                                x:Name="popup" 
+                                IsOpen="{Binding Source={x:Reference evenlist},Path=BindingContext.CanShowPopup}"
+                                ClosePopupOnBackButtonPressed="True">
+                                <popuplayout:SfPopupLayout.PopupView>
+
+                                    <popuplayout:PopupView 
+                                        AppearanceMode="OneButton"
+                                        AcceptCommand="{Binding Source={x:Reference evenlist},Path=BindingContext.Delete}" 
+                                        HeaderTitle="Warning"
+                                        AcceptButtonText="Delete"
+                                        Style="{StaticResource PopupStyle}">
+
+                                        <popuplayout:PopupView.ContentTemplate>
+                                            <DataTemplate>
+                                                <Label
+                                                    Text="{Binding Source={x:Reference evenlist},
+                                                    Path=BindingContext.EventToDelete.EventName, 
+                                                    StringFormat='You are about to delete \'{0}\' and all its content. Sure?'}"                                                     
+                                                    HorizontalTextAlignment="Center"/>
+                                            </DataTemplate>
+                                        </popuplayout:PopupView.ContentTemplate>
+                                    </popuplayout:PopupView>
+
+
+                                </popuplayout:SfPopupLayout.PopupView>
+
+                                <popuplayout:SfPopupLayout.Content>
+                                    <StackLayout>
+                                        <control:CustomShadowFrame
+                                            x:Name="Item"
+                                            Margin="0"
+                                            Padding="0"
+                                            BackgroundColor="{DynamicResource Gray-White}"
+                                            BorderColor="{DynamicResource Gray-White}"
+                                            CornerRadius="4"
+                                            HasShadow="True">
+                                            <control:CustomShadowFrame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Path=BindingContext.MenuItemSelectedCommand, Source={x:Reference evenlist}}" CommandParameter="{Binding .}" />
+                                            </control:CustomShadowFrame.GestureRecognizers>
+
+                                            <Grid ColumnSpacing="10" RowSpacing="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <!--  Date and Location -->
+
+                                                <Label
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            Margin="8,0,0,0"
+                                            FontFamily="{DynamicResource Montserrat-Medium}"
+                                            FontSize="12"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding RaceDate, StringFormat='{0:MMMM/dd}'}"
+                                            TextColor="{DynamicResource Gray-700}" />
+
+                                                <Label
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            FontFamily="{DynamicResource Montserrat-Medium}"
+                                            FontSize="12"
+                                            LineBreakMode="TailTruncation"
+                                            HorizontalOptions="End"
+                                            HorizontalTextAlignment="End"
+                                            Text="{Binding Location}"                                            
+                                            MaxLines="1"
+                                            TextColor="{DynamicResource Gray-700}" />
+
+                                                <!--  Event Name  -->
+                                                <Label
+                                                Grid.Row="1"
+                                                Grid.RowSpan="2"
+                                                Grid.ColumnSpan="2"                                                    
+                                                Margin="8,8,0,0"
+                                                LineBreakMode="TailTruncation"
+                                                MaxLines="2"
+                                                FontFamily="{DynamicResource Montserrat-SemiBold}"
+                                                FontSize="14"
+                                                HorizontalOptions="Start"
+                                                    
+                                                Text="{Binding EventName}"
+                                                TextColor="{DynamicResource Gray-900}" />
+
+                                                <!--Event Icon-->
+                                                <Label
+                                                Grid.Row="1"
+                                                Margin="0,8,8,0"
+                                                Grid.Column="2"
+                                                FontFamily="{DynamicResource MaterialIcons}"
+                                                FontSize="18"
+                                                HorizontalOptions="End"
+                                                HorizontalTextAlignment="End"
+                                                Text="{Binding IsRan, Converter={x:StaticResource BooleanToTextConverter}}" 
+                                                TextColor="{Binding IsRan, Converter={x:StaticResource BooleanToColorConverter}, ConverterParameter=4}" />
+
+                                                <badge:SfBadgeView 
+                                                HorizontalOptions="End" 
+                                                VerticalOptions="Center"
+                                                Grid.Row="2"
+                                                Grid.Column="2">
+                                                    <badge:SfBadgeView.Content>
+                                                        <buttons:SfButton
+                                                        BindingContext="{Binding Source={x:Reference evenlist}, Path=BindingContext}"
+                                                        Command="{Binding OpenPopupCommand}" CommandParameter="{Binding Source={x:Reference   
+                                                        Item},Path=BindingContext}"
+                                                        TextColor="Red"
+                                                        FontSize="16"
+                                                        FontFamily="{StaticResource MaterialIcons}"
+                                                        BackgroundColor="{DynamicResource Gray-White}"
+                                                        Text="&#xe15d;"/>
+                                                    </badge:SfBadgeView.Content>
+                                                </badge:SfBadgeView>
+                                            </Grid>
+                                        </control:CustomShadowFrame>
+                                        <Button Text="Click to open popup" VerticalOptions="Center" HorizontalOptions="Center" />
+                                    </StackLayout>
+                                </popuplayout:SfPopupLayout.Content>
+                            </popuplayout:SfPopupLayout>
+                        </DataTemplate>
+                    </listview:SfListView.ItemTemplate>
+                </listview:SfListView>
+            </ScrollView>
+            <StackLayout Padding="10,0,0,10" Orientation="Vertical">
+                <buttons:SfButton
+                HorizontalOptions="Start"
+                FontFamily="{StaticResource MaterialIcons}"
+                Text="&#xe148;"
+                Style="{StaticResource SfButtonStyle}"
+                Command="{Binding NavigateToAddEventPageCommand}">
+                </buttons:SfButton>
+                <Label Style="{StaticResource LabelStyle}"
+                       Text="Add&#10;Event"
+                       Margin="10,0,0,0"
+                       FontSize="11"/>
+            </StackLayout>
+
+
+
+
+            <!--ads-->
+            <StackLayout 
+                Padding="0" 
+                HorizontalOptions="FillAndExpand" 
+                VerticalOptions="FillAndExpand">
+                <control:AdMobView WidthRequest="320" HeightRequest="50" />
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+    
+
+    

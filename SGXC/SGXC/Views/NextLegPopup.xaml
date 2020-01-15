@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:helper="clr-namespace:SGXC.Helpers"
+             xmlns:popuplayout="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
+             mc:Ignorable="d"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             x:Class="SGXC.Views.NextLegPopup">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <StackLayout
+        Padding="0"
+        helper:RTLHelper.Margin="0,0,0,0"
+        Orientation="Horizontal"
+        Spacing="0">
+
+        <popuplayout:SfPopupLayout x:Name="nextlegpopup" IsOpen="{Binding ShowNextLegPopUp}">
+
+            <popuplayout:SfPopupLayout.PopupView>
+                <popuplayout:PopupView 
+                    ShowFooter="True"
+                    ShowHeader="False"
+                    HeightRequest="190"
+                    AppearanceMode="OneButton"
+                    AnimationMode="SlideOnLeft"
+                    AnimationDuration="200"
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    Opacity="0.5"
+                    AnimationEasing="SinInOut">
+                    <popuplayout:PopupView.PopupStyle>
+
+                        <popuplayout:PopupStyle CornerRadius="0"/>
+
+                    </popuplayout:PopupView.PopupStyle>
+
+                    <popuplayout:PopupView.ContentTemplate>
+                        <DataTemplate>
+                                <!--Message-->
+                                <StackLayout Orientation="Vertical" 
+                                             BackgroundColor="{DynamicResource Gray-500}"
+                                             Padding="20">
+                                        <Label
+                                            FontFamily="{DynamicResource Montserrat-Medium}"
+                                            FontSize="16"
+                                            HorizontalOptions="CenterAndExpand"     
+                                            HorizontalTextAlignment="Center"
+                                            Text="Congrats!!!"
+                                            TextColor="{DynamicResource Gray-Black}" />
+                                        
+                                        <Label
+                                            FontFamily="{DynamicResource Montserrat-Medium}"
+                                            FontSize="12"
+                                            HorizontalOptions="StartAndExpand"     
+                                            HorizontalTextAlignment="Start"
+                                            LineBreakMode="WordWrap"                                            
+                                            Text="{Binding Legnumber, StringFormat='Leg {0} finished.Move on'}"
+                                            TextColor="{DynamicResource Gray-Black}" />
+                                    </StackLayout>
+                        </DataTemplate>
+                    </popuplayout:PopupView.ContentTemplate>
+                </popuplayout:PopupView>
+            </popuplayout:SfPopupLayout.PopupView>
+        </popuplayout:SfPopupLayout>
+    </StackLayout>
+</ContentView>

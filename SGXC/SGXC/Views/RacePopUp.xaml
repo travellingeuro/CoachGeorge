@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:popuplayout="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
+             mc:Ignorable="d"
+             xmlns:helper="clr-namespace:SGXC.Helpers"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             x:Class="SGXC.Views.RacePopUp">
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentView.Resources>
+    <StackLayout
+        Padding="0"
+        helper:RTLHelper.Margin="0,0,0,0"
+        Orientation="Horizontal"
+        Spacing="0">
+
+        <popuplayout:SfPopupLayout 
+            x:Name="racepopup" 
+            IsOpen="{Binding ShowPopUp}">
+            <popuplayout:SfPopupLayout.PopupView>
+                <popuplayout:PopupView 
+                    ShowFooter="True"
+                    ShowHeader="False"
+                    AutoSizeMode="Both"
+                    AppearanceMode="OneButton"
+                    AnimationMode="SlideOnLeft"
+                    AnimationDuration="200"
+                    BackgroundColor="{DynamicResource Gray-500}"
+                    Opacity="0.5"
+                    AnimationEasing="SinInOut">
+                    <popuplayout:PopupView.PopupStyle>
+                        <popuplayout:PopupStyle CornerRadius="0"/>
+                    </popuplayout:PopupView.PopupStyle>
+                    <popuplayout:PopupView.ContentTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="grid" 
+                                  RowSpacing="1" 
+                                  BackgroundColor="{DynamicResource Gray-500}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <!--Message-->
+                                <control:CustomShadowFrame 
+                                    Style="{StaticResource CustomShadowFrame}"
+                                    Grid.Row="0"> 
+                                    <StackLayout Orientation="Vertical">
+                                        <Label
+                                            FontFamily="{DynamicResource Montserrat-Medium}"
+                                            FontSize="16"  
+                                            LineBreakMode="WordWrap"
+                                            MaxLines="5"
+                                            HorizontalOptions="End"     
+                                            HorizontalTextAlignment="End"
+                                            Text="You are setting a Race. We are measuring split times at the distance you choose"
+                                            TextColor="{DynamicResource Gray-Black}" />
+                                    </StackLayout>
+                                </control:CustomShadowFrame>
+                            </Grid>
+                        </DataTemplate>
+                    </popuplayout:PopupView.ContentTemplate>
+                </popuplayout:PopupView>
+            </popuplayout:SfPopupLayout.PopupView>
+        </popuplayout:SfPopupLayout>
+    </StackLayout>
+</ContentView>

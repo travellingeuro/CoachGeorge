@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:numericupdown="clr-namespace:Syncfusion.SfNumericUpDown.XForms;assembly=Syncfusion.SfNumericUpDown.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SGXC.Views.AddTimesToEventPage" 
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:converter="clr-namespace:SGXC.Converters"
+             xmlns:listView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:gradient="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             xmlns:stepProgressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+             xmlns:views="clr-namespace:SGXC.Views"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             x:Name="AddRunnerToEventPage"
+             BackgroundColor="{DynamicResource Gray-Black}"
+             NavigationPage.HasNavigationBar="False"
+             Title="Add runner to event"
+             Style="{StaticResource ContentPageStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanToColorConverter x:Key="ColorConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Padding="0,25,0,10">
+            <!--Title-->
+            <control:TitleView                     
+                    BackgroundColor="{DynamicResource PrimaryColor}">
+                <control:TitleView.LeadingView>
+                    <views:GoBackButton />
+                </control:TitleView.LeadingView>
+                <control:TitleView.Content>
+                    <Label
+                        Style="{StaticResource LabelStyle}" 
+                        Text="{Binding NewEvent.EventName}"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Padding="0,8,0,0"/>
+                </control:TitleView.Content>
+                <control:TitleView.TrailingView>
+                    <views:NavigationBar  prism:ViewModelLocator.AutowirePartialView="{x:Reference AddRunnerToEventPage}" />
+                </control:TitleView.TrailingView>
+            </control:TitleView>
+
+            <!--Activity indicator-->
+            <StackLayout 
+                    HorizontalOptions="Center" 
+                    WidthRequest="90">
+                <busyindicator:SfBusyIndicator 
+                    AnimationType="ECG"
+                    ViewBoxHeight="50"
+                    ViewBoxWidth="50"
+                    EnableAnimation="True"
+                    Duration="0.5"
+                    Title="Loading data..."
+                    TextColor="{DynamicResource PrimaryColor}"
+                    IsVisible="{Binding IsBusy}" 
+                    IsBusy="{Binding IsBusy}" />
+            </StackLayout>
+            <StackLayout>
+                <views:RacePopUp/>
+            </StackLayout>
+
+            <!--Content-->
+
+            <Grid Padding="10,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+
+                </Grid.RowDefinitions>
+
+
+                <!--Progress Bar-->
+                <StackLayout 
+                Grid.Row="0" 
+                Margin="0,-30,0,0">
+                    <stepProgressBar:SfStepProgressBar 
+                    Grid.Column="1" 
+                    HorizontalOptions="CenterAndExpand" 
+                    VerticalOptions="Center"
+                    Margin="10,30,0,0">
+                        <stepProgressBar:SfStepProgressBar.InProgressStepStyle>
+                            <stepProgressBar:StepStyle
+                            x:TypeArguments="stepProgressBar:InProgressStepState"
+                            MarkerFillColor="{StaticResource PrimaryColor}"
+                            MarkerShapeType="Circle"
+                            MarkerStrokeColor="{StaticResource PrimaryDarkColor}"
+                            ProgressLineColor="{StaticResource PrimaryColor}" />
+                        </stepProgressBar:SfStepProgressBar.InProgressStepStyle>
+
+                        <stepProgressBar:SfStepProgressBar.CompletedStepStyle>
+                            <stepProgressBar:StepStyle
+                            x:TypeArguments="stepProgressBar:CompletedStepState"
+                            MarkerFillColor="{StaticResource PrimaryColor}"
+                            MarkerShapeType="Circle"
+                            MarkerStrokeColor="{StaticResource PrimaryDarkColor}"
+                            ProgressLineColor="{StaticResource PrimaryColor}" />
+                        </stepProgressBar:SfStepProgressBar.CompletedStepStyle>
+                        <stepProgressBar:StepView PrimaryText="Step 1"/>
+                        <stepProgressBar:StepView PrimaryText="Step 2"/>
+                        <stepProgressBar:StepView PrimaryText="Step 3" Status="InProgress">
+                            <stepProgressBar:StepView.PrimaryFormattedText>
+                                <FormattedString>
+                                    <Span
+                                    FontFamily="{StaticResource Montserrat-Bold}"
+                                    FontSize="Micro"
+                                    Text="Work Outs"
+                                    TextColor="{StaticResource Gray-White}" />
+                                </FormattedString>
+                            </stepProgressBar:StepView.PrimaryFormattedText>
+
+                        </stepProgressBar:StepView>
+
+                    </stepProgressBar:SfStepProgressBar>
+
+                </StackLayout>
+
+                <!--List of races section-->
+                <StackLayout Grid.Row="1">
+                    <Grid BindingContext="{Binding ListofRaces}" x:Name="adddistanceentry" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="90"/>
+                            <ColumnDefinition Width="25"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="56"/>
+                        </Grid.RowDefinitions>
+                        <border:SfBorder Grid.Row="0" 
+                                     Grid.Column="0"
+                                     Padding="6,0,0,0"
+                                     Margin="0,10"
+                                     BorderColor="{Binding Source={x:Reference Distancelist},
+                                                  Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}" 
+                                     Style="{StaticResource FormBorderStyle}">
+                            <combobox:SfComboBox
+                            SelectedItem="{Binding DistanceName}"
+                            x:Name="Distancelist"                            
+                            TextSize="12"
+                            Style="{StaticResource ComboBoxStyle}"
+                            Watermark="Distance"
+                            DataSource="{Binding RaceList}">
+                                <combobox:SfComboBox.DropDownButtonSettings>
+                                    <combobox:DropDownButtonSettings Width="30" 
+                                                                 Height="30">
+                                        <combobox:DropDownButtonSettings.View>
+                                            <Label
+                                            Margin="0"
+                                            FontFamily="{StaticResource FontIcons}"
+                                            FontSize="25"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{StaticResource DropDownButtonIcon}"
+                                            TextColor="{DynamicResource Gray-600}"
+                                            VerticalTextAlignment="Center" />
+                                        </combobox:DropDownButtonSettings.View>
+                                    </combobox:DropDownButtonSettings>
+                                </combobox:SfComboBox.DropDownButtonSettings>
+                            </combobox:SfComboBox>
+                        </border:SfBorder>
+                        <border:SfBorder
+                            x:Name="numericborder" 
+                            IsVisible="{Binding Source={x:Reference AddRunnerToEventPage},Path=BindingContext.ShowNumeric}"
+                            Grid.Row="0" 
+                            Grid.Column="1" 
+                            BorderColor="{Binding Source={x:Reference numericupdown}, 
+                                         Path=IsFocused, Converter={StaticResource ColorConverter}, ConverterParameter=3}"
+                            Style="{StaticResource FormBorderStyle}"
+                            Padding="6,0,0,0" 
+                            Margin="0,10">
+                            <numericupdown:SfNumericUpDown                                
+                            x:Name="numericupdown"
+                            Style="{StaticResource SfNumericUpDownStyle}"
+                            MaximumDecimalDigits ="0"
+                            Value="{Binding Reps}" 
+                            SpinButtonAlignment="Both"
+                            Watermark="Repetitions"
+                            Maximum="10"
+                            Minimum="1"
+                            StepValue="1" Margin="0,6,0,0" >
+                                <numericupdown:SfNumericUpDown.IncrementButtonSettings>
+                                    <numericupdown:UpDownButtonSettings 
+                                    ButtonFontFamily="{StaticResource MaterialIcons}" 
+                                    ButtonFontIcon="&#xe148;"
+                                    ButtonFontColor="{DynamicResource Gray-White}"/>
+                                </numericupdown:SfNumericUpDown.IncrementButtonSettings>
+                                <numericupdown:SfNumericUpDown.DecrementButtonSettings>
+                                    <numericupdown:UpDownButtonSettings 
+                                    ButtonFontFamily="{StaticResource MaterialIcons}" 
+                                    ButtonFontIcon="&#xe15d;"
+                                    ButtonFontColor="{DynamicResource Gray-White}"/>
+                                </numericupdown:SfNumericUpDown.DecrementButtonSettings>
+                            </numericupdown:SfNumericUpDown>
+                        </border:SfBorder>
+                        <buttons:SfButton
+                        Grid.Row="0" 
+                        Grid.Column="2"
+                        Margin="0,12"
+                        Padding="0,7"
+                        BindingContext="{Binding Source={x:Reference AddRunnerToEventPage}, Path=BindingContext}"
+                        Command="{Binding AddDistanceCommand}"
+                        HorizontalOptions="Center"
+                        Style="{StaticResource SfButtonStyle}"
+                        CornerRadius="4"
+                        FontFamily="{StaticResource MaterialIcons}"
+                        Text="&#xe148;"
+                        FontSize="16"/>
+                    </Grid>
+                </StackLayout>
+
+
+                <!--List of times section-->
+                <StackLayout Grid.Row="2">
+                    <listView:SfListView
+                    x:Name="timeslist"                    
+                    ItemSize="25"                    
+                    VerticalOptions="Center"
+                    ItemsSource="{Binding ShowList}">
+
+                        <listView:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout 
+                                Orientation="Horizontal"
+                                HorizontalOptions="FillAndExpand" 
+                                x:Name="Item">
+
+                                    <Label 
+                                    Text="{Binding Reps, StringFormat='{0} lap/s of '}"
+                                    Style="{StaticResource LabelStyle}">
+                                    </Label>
+                                    <Label 
+                                    Text="{Binding DistanceName}"
+                                    Style="{StaticResource LabelStyle}" 
+                                    HorizontalTextAlignment="Start"
+                                    HorizontalOptions="FillAndExpand"
+                                    LineBreakMode="TailTruncation" 
+                                    Margin="0,0,-20,0"/>
+                                    <badge:SfBadgeView 
+                                    Margin="0" 
+                                    HorizontalOptions="End" >
+                                        <badge:SfBadgeView.Content>
+                                            <buttons:SfButton
+                                            BindingContext="{Binding Source={x:Reference AddRunnerToEventPage}, Path=BindingContext}"
+                                            Command="{Binding RemoveDistanceCommand}" CommandParameter="{Binding Source={x:Reference Item},Path=BindingContext}"
+                                            TextColor="Red"
+                                            FontFamily="{StaticResource MaterialIcons}"
+                                            BackgroundColor="Black"
+                                            Text="&#xe15d;" Margin="0,-6,0,0"/>
+                                        </badge:SfBadgeView.Content>
+                                    </badge:SfBadgeView>
+                                </StackLayout>
+                            </DataTemplate>
+                        </listView:SfListView.ItemTemplate>
+                    </listView:SfListView>
+                </StackLayout>
+
+                <!--Buttons section-->
+                <StackLayout Grid.Row="3">
+                    <StackLayout Orientation="Horizontal"
+                             HorizontalOptions="Start"
+                             Spacing="15">
+                        <StackLayout Orientation="Vertical">
+                            <buttons:SfButton
+                                HorizontalOptions="Start"
+                                FontFamily="{StaticResource MaterialIcons}"
+                                Text="&#xe566;"
+                                Style="{StaticResource SfButtonStyle}"
+                                Command="{Binding RunEventCommand}">
+                            </buttons:SfButton>
+                            <Label Style="{StaticResource LabelStyle}"
+                                   Text="run&#10;now"
+                                   Margin="10,0,0,0"
+                                   FontSize="11"/>
+                        </StackLayout>
+
+                        <StackLayout Orientation="Vertical">
+                            <buttons:SfButton
+                                HorizontalOptions="Start"
+                                FontFamily="{StaticResource MaterialIcons}"
+                                Text="&#xe161;"
+                                Style="{StaticResource SfButtonStyle}"
+                                Command="{Binding SaveEventCommand}">
+                            </buttons:SfButton>
+                            <Label 
+                                Style="{StaticResource LabelStyle}"
+                                Text="save and&#10;run later"
+                                Margin="10,0,0,0"
+                                FontSize="11"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+            <!--Ads-->
+            <StackLayout 
+                    Padding="0" 
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="FillAndExpand">
+                <control:AdMobView WidthRequest="320" HeightRequest="50" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

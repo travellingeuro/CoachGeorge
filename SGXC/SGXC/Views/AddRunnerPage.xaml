@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:converter="clr-namespace:SGXC.Converters"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:views="clr-namespace:SGXC.Views"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SGXC.Views.AddRunnerPage" 
+             x:Name="addrunnerpage"
+             BackgroundColor="{DynamicResource Gray-Black}"
+             NavigationPage.HasNavigationBar="False"
+             Style="{StaticResource ContentPageStyle}"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanToColorConverter x:Key="ColorConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout Padding="0,25,0,10">
+            <!--Title-->
+            <control:TitleView                     
+                    BackgroundColor="{DynamicResource PrimaryColor}">
+                <control:TitleView.LeadingView>
+                    <views:GoBackButton/>
+                </control:TitleView.LeadingView>
+                <control:TitleView.Content>
+                    <Label
+                        Style="{StaticResource LabelStyle}" 
+                        Text="Runners"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Padding="0,8,0,0"/>
+                </control:TitleView.Content>
+                <control:TitleView.TrailingView>
+                    <views:NavigationBar  prism:ViewModelLocator.AutowirePartialView="{x:Reference addrunnerpage}" />
+                </control:TitleView.TrailingView>
+            </control:TitleView>
+
+            <Grid Padding="15,0,15,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+
+
+                <!--entry form section-->
+                <ScrollView Grid.Row="0">
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="FillAndExpand">
+
+                        <!--Name entry-->
+
+                        <inputLayout:SfTextInputLayout
+                        Hint="Name"                        
+                        Style="{StaticResource SfTextInputLayout}">
+                            <Entry
+                            Text="{Binding Runner.Name}"
+                            x:Name="NameEntry"
+                            Style="{StaticResource EntryStandarStyle}" />
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Grade Entry-->
+
+                        <inputLayout:SfTextInputLayout
+                        Hint="Grade" 
+                        Style="{StaticResource SfTextInputLayout}">
+                            <combobox:SfComboBox
+                            SelectedItem="{Binding Runner.Grade}"
+                            x:Name="GradeEntry"
+                            Style="{StaticResource ComboBoxStyle}"
+                            Watermark="Grade"
+                            TextSize="14">
+                                <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+                                        <x:String>1</x:String>
+                                        <x:String>2</x:String>
+                                        <x:String>3</x:String>
+                                        <x:String>4</x:String>
+                                        <x:String>5</x:String>
+                                        <x:String>6</x:String>
+                                        <x:String>7</x:String>
+                                        <x:String>8</x:String>
+                                        <x:String>9</x:String>
+                                        <x:String>10</x:String>
+                                        <x:String>11</x:String>
+                                        <x:String>12</x:String>
+                                    </ListCollection:List>
+                                </combobox:SfComboBox.ComboBoxSource>
+                                <combobox:SfComboBox.DropDownButtonSettings>
+                                    <combobox:DropDownButtonSettings Width="30" Height="30">
+                                        <combobox:DropDownButtonSettings.View>
+                                            <Label
+                                            Margin="0"
+                                            FontFamily="{StaticResource FontIcons}"
+                                            FontSize="25"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{StaticResource DropDownButtonIcon}"
+                                            TextColor="{DynamicResource Gray-600}"
+                                            VerticalTextAlignment="Center" />
+                                        </combobox:DropDownButtonSettings.View>
+                                    </combobox:DropDownButtonSettings>
+                                </combobox:SfComboBox.DropDownButtonSettings>
+                            </combobox:SfComboBox>
+
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Gender entry-->
+
+                        <inputLayout:SfTextInputLayout
+                        Hint="Gender" 
+                        Style="{StaticResource SfTextInputLayout}">
+
+                            <combobox:SfComboBox
+                            SelectedItem="{Binding Runner.Gender}"
+                            x:Name="GenderEntry"
+                            Style="{StaticResource ComboBoxStyle}"
+                            TextSize="14"
+                            Watermark="Gender">
+                                <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+
+                                        <x:String>M</x:String>
+                                        <x:String>F</x:String>
+
+                                    </ListCollection:List>
+                                </combobox:SfComboBox.ComboBoxSource>
+                                <combobox:SfComboBox.DropDownButtonSettings>
+                                    <combobox:DropDownButtonSettings 
+                                    Width="30" 
+                                    Height="30">
+                                        <combobox:DropDownButtonSettings.View>
+                                            <Label
+                                            Margin="0"
+                                            FontFamily="{StaticResource FontIcons}"
+                                            FontSize="25"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{StaticResource DropDownButtonIcon}"
+                                            TextColor="{DynamicResource Gray-600}"
+                                            VerticalTextAlignment="Center" />
+                                        </combobox:DropDownButtonSettings.View>
+                                    </combobox:DropDownButtonSettings>
+                                </combobox:SfComboBox.DropDownButtonSettings>
+                            </combobox:SfComboBox>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Season entry-->
+                        <inputLayout:SfTextInputLayout
+                        Hint="Season" 
+                        Style="{StaticResource SfTextInputLayout}">
+
+                            <combobox:SfComboBox
+                            SelectedItem="{Binding Runner.Season}"
+                            x:Name="SeasonNameEntry"
+                            Style="{StaticResource ComboBoxStyle}"
+                            TextSize="14"
+                            Watermark="Season">
+                                <combobox:SfComboBox.ComboBoxSource>
+                                    <ListCollection:List x:TypeArguments="x:String">
+                                        <x:String>2019</x:String>
+                                        <x:String>2020</x:String>
+                                        <x:String>2021</x:String>
+                                        <x:String>2022</x:String>
+                                        <x:String>2023</x:String>
+                                        <x:String>2024</x:String>
+                                    </ListCollection:List>
+                                </combobox:SfComboBox.ComboBoxSource>
+                                <combobox:SfComboBox.DropDownButtonSettings>
+                                    <combobox:DropDownButtonSettings 
+                                    Width="30"
+                                    Height="30">
+                                        <combobox:DropDownButtonSettings.View>
+                                            <Label
+                                            Margin="0"
+                                            FontFamily="{StaticResource FontIcons}"
+                                            FontSize="25"
+                                            HorizontalTextAlignment="Center"
+                                            Text="{StaticResource DropDownButtonIcon}"
+                                            TextColor="{DynamicResource Gray-600}"
+                                            VerticalTextAlignment="Center" />
+                                        </combobox:DropDownButtonSettings.View>
+                                    </combobox:DropDownButtonSettings>
+                                </combobox:SfComboBox.DropDownButtonSettings>
+                            </combobox:SfComboBox>
+                        </inputLayout:SfTextInputLayout>
+
+                        <!--Contact Info-->
+
+                        <inputLayout:SfTextInputLayout
+                        Hint="Contact Info" 
+                        Style="{StaticResource SfTextInputLayout}">
+
+                            <Editor
+                            Text="{Binding Runner.Contacts}"
+                            x:Name="ContactEntry"
+                            Placeholder="Contacts"
+                            Style="{StaticResource EntryTextStyle}" />
+                        </inputLayout:SfTextInputLayout>
+                    </StackLayout>
+                </ScrollView>
+
+                <!--bottom button section-->
+                <StackLayout Grid.Row="1" Orientation="Vertical">
+                    <buttons:SfButton
+                        HorizontalOptions="Start"
+                        FontFamily="{StaticResource MaterialIcons}"
+                        Text="&#xe161;"
+                        Style="{StaticResource SfButtonStyle}"
+                        Command="{Binding SaveRunnerCommand}">
+                    </buttons:SfButton>
+                    <Label 
+                        Style="{StaticResource LabelStyle}"
+                        Text="Save"
+                        Margin="10,0,0,0"
+                        FontSize="11"/>
+                </StackLayout>
+
+                <!--<StackLayout 
+                Grid.Row="1" 
+                Orientation="Horizontal">                
+                <buttons:SfButton
+                    Command="{Binding SaveRunnerCommand}"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource SfButtonStyle}"
+                    Text="Save"
+                    WidthRequest="120" />
+            </StackLayout>-->
+            </Grid>
+            <!--Ads-->
+            <StackLayout 
+                    Padding="0" 
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="FillAndExpand">
+                <control:AdMobView WidthRequest="320" HeightRequest="50" />
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
+   

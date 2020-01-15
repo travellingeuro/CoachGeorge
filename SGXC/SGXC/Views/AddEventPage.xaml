@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:inputLayout="clr-namespace:Syncfusion.XForms.TextInputLayout;assembly=Syncfusion.Core.XForms"
+             xmlns:stepProgressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+             xmlns:calendar="clr-namespace:Syncfusion.SfCalendar.XForms;assembly=Syncfusion.SfCalendar.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SGXC.Views.AddEventPage"
+             xmlns:ListCollection="clr-namespace:System.Collections.Generic;assembly=netstandard"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
+             xmlns:converter="clr-namespace:SGXC.Converters"
+             BackgroundColor="{DynamicResource Gray-Black}"
+             NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
+             xmlns:views="clr-namespace:SGXC.Views"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             x:Name="newevent"
+             Title="{Binding NewEvent}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanToColorConverter x:Key="ColorConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+                <calendar:SfCalendarStyles />
+                <ResourceDictionary>
+                    <Color x:Key="SfCalendarDateSelectionColor">#F5F5F5</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="0,25,0,10">
+                <!--Title-->
+                <control:TitleView                     
+                    BackgroundColor="{DynamicResource PrimaryColor}">
+                    <control:TitleView.LeadingView>
+                        <views:GoBackButton />
+                    </control:TitleView.LeadingView>
+                    <control:TitleView.Content>
+                        <Label
+                        Style="{StaticResource LabelStyle}" 
+                        Text="New Event"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Padding="0,8,0,0"/>
+                    </control:TitleView.Content>
+                    <control:TitleView.TrailingView>
+                        <views:NavigationBar  prism:ViewModelLocator.AutowirePartialView="{x:Reference newevent}" />
+                    </control:TitleView.TrailingView>
+                </control:TitleView>
+
+                <!--Activity indicator-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--progress bar-->
+
+                    <stepProgressBar:SfStepProgressBar Grid.Column="1" 
+                                                   HorizontalOptions="CenterAndExpand" 
+                                                   VerticalOptions="Center"
+                                                   Margin="0,20,0,0">
+                        <stepProgressBar:SfStepProgressBar.InProgressStepStyle>
+                            <stepProgressBar:StepStyle
+                            x:TypeArguments="stepProgressBar:InProgressStepState"
+                            MarkerFillColor="{StaticResource PrimaryColor}"
+                            MarkerShapeType="Circle"
+                            MarkerStrokeColor="{StaticResource PrimaryDarkColor}"
+                            ProgressLineColor="{StaticResource PrimaryColor}" />
+                        </stepProgressBar:SfStepProgressBar.InProgressStepStyle>
+                        <stepProgressBar:StepView PrimaryText="Step 1" 
+                                              Status="InProgress">
+                            <stepProgressBar:StepView.PrimaryFormattedText>
+                                <FormattedString>
+                                    <Span
+                                        FontFamily="{StaticResource Montserrat-Bold}"
+                                        FontSize="Micro"
+                                        Text="Event Info"
+                                        TextColor="{StaticResource Gray-White}"/>
+                                </FormattedString>
+                            </stepProgressBar:StepView.PrimaryFormattedText>
+                        </stepProgressBar:StepView>
+                        <stepProgressBar:StepView PrimaryText="Step 2" />
+                        <stepProgressBar:StepView PrimaryText="Step 3" />
+
+                    </stepProgressBar:SfStepProgressBar>
+                </Grid>
+
+                <!--form section-->
+
+                <StackLayout Padding="15,0">
+
+                    <!--Name-->
+                    <inputLayout:SfTextInputLayout                            
+                            Hint="Event Name" 
+                            Style="{StaticResource SfTextInputLayout}">
+
+                        <Entry
+                            Text="{Binding NewEvent.EventName}"
+                            x:Name="EventNameEntry"
+                            Style="{StaticResource EntryStandarStyle}" />
+
+                    </inputLayout:SfTextInputLayout>
+
+                    <!--Location-->
+                    <inputLayout:SfTextInputLayout                            
+                            Hint="Location"
+                            Style="{StaticResource SfTextInputLayout}">
+                        <Entry
+                                    Text="{Binding NewEvent.Location}"
+                                    x:Name="EventLocationEntry"                            
+                                    Style="{StaticResource EntryStandarStyle}" />
+                    </inputLayout:SfTextInputLayout>
+
+                    <!--Season-->
+                    <inputLayout:SfTextInputLayout
+                                Margin="0"                               
+                                Hint="Season"
+                                Style="{StaticResource SfTextInputLayout}">
+
+                        <combobox:SfComboBox
+                            SelectedItem="{Binding NewEvent.Season}"
+                            x:Name="SeasonNameEntry"
+                            Style="{StaticResource ComboBoxStyle}"                            
+                            TextSize="14">
+                            <combobox:SfComboBox.ComboBoxSource>
+                                <ListCollection:List x:TypeArguments="x:String">
+                                    <x:String>2019</x:String>
+                                    <x:String>2020</x:String>
+                                    <x:String>2021</x:String>
+                                    <x:String>2022</x:String>
+                                    <x:String>2023</x:String>
+                                    <x:String>2024</x:String>
+                                </ListCollection:List>
+                            </combobox:SfComboBox.ComboBoxSource>
+                            <combobox:SfComboBox.DropDownButtonSettings>
+                                <combobox:DropDownButtonSettings  Width="30" Height="30">
+                                    <combobox:DropDownButtonSettings.View>
+                                        <Label
+                                                Margin="0"
+                                                FontFamily="{StaticResource FontIcons}"
+                                                FontSize="25"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{StaticResource DropDownButtonIcon}"
+                                                TextColor="{DynamicResource Gray-600}"                                                                                       VerticalTextAlignment="Center" />
+                                    </combobox:DropDownButtonSettings.View>
+                                </combobox:DropDownButtonSettings>
+                            </combobox:SfComboBox.DropDownButtonSettings>
+                        </combobox:SfComboBox>
+                    </inputLayout:SfTextInputLayout>
+
+                    <!--Date-->
+                    <inputLayout:SfTextInputLayout
+                        
+                        Hint="Date"
+                        Style="{StaticResource SfTextInputLayout}">
+
+                        <Label
+                             x:Name="entrydate"
+                             Padding="0,20"                            
+                             Text="{Binding Source={x:Reference calendar},Path=SelectedDate,StringFormat='{0:MM/dd/yy}' }"
+                             Style="{StaticResource EntryStandarStyle}">
+
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                            </Label.GestureRecognizers>
+                        </Label>
+
+                    </inputLayout:SfTextInputLayout>
+
+                    <calendar:SfCalendar
+                        x:Name="calendar"                         
+                        SelectedDate="{Binding NewEvent.RaceDate}"
+                        OnCalendarTapped="calendar_OnCalendarTapped"
+                        OnMonthCellLoaded="calendar_OnMonthCellLoaded"
+                        ViewMode="MonthView">                        
+                    </calendar:SfCalendar>
+                    <StackLayout Orientation="Horizontal">
+                        
+                        <Label
+                            HorizontalOptions="Start"
+                            Style="{StaticResource LabelStyle}" 
+                            Text="Is it a Race?"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="2"/>
+                        <buttons:SfSwitch 
+                            x:Name="israceswitch"                            
+                            IsOn="{Binding NewEvent.IsRace}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="On">
+                                    <VisualState.Setters>
+                                        <Setter Property="SwitchSettings">
+                                            <Setter.Value>
+                                                <buttons:DefaultSwitchSettings x:TypeArguments="buttons:OnState"
+                                                                               ThumbColor="{DynamicResource PrimaryColor}"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </buttons:SfSwitch>
+
+                    </StackLayout>
+
+
+                </StackLayout>
+                <StackLayout Padding="10,0,0,10" Orientation="Vertical">
+                    <buttons:SfButton
+                HorizontalOptions="Start"
+                FontFamily="{StaticResource MaterialIcons}"
+                Text="&#xe01f;"
+                Style="{StaticResource SfButtonStyle}"
+                Command="{Binding AddRunnersToEventCommand}">
+                    </buttons:SfButton>
+                    <Label Style="{StaticResource LabelStyle}"
+                       Text="next"
+                       Margin="10,0,0,0"
+                       FontSize="12"/>
+                </StackLayout>                
+                
+                <!--ads-->
+                <StackLayout 
+                    Padding="0" 
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="FillAndExpand">
+                    <control:AdMobView WidthRequest="320" HeightRequest="50" />
+                </StackLayout>
+            </StackLayout>            
+        </ScrollView>
+        
+    </ContentPage.Content>
+</ContentPage>

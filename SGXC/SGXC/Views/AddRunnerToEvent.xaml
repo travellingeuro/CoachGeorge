@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:expander="clr-namespace:Syncfusion.XForms.Expander;assembly=Syncfusion.Expander.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="SGXC.Views.AddRunnerToEvent"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:converter="clr-namespace:SGXC.Converters"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             xmlns:helper="clr-namespace:SGXC.Helpers"
+             xmlns:listView="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
+             xmlns:behaviours="clr-namespace:SGXC.Behaviours"
+             xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
+             xmlns:stepProgressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
+             xmlns:views="clr-namespace:SGXC.Views"
+             x:Name="AddRunnerToEventPage"
+             BackgroundColor="{DynamicResource Gray-Black}"
+             NavigationPage.HasNavigationBar="False"
+             Title="Add runner to event"
+             Style="{StaticResource ContentPageStyle}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:BooleanToColorConverter x:Key="boolToColorConverter" />
+            <converter:BooleanToStringConverter x:Key="boolToStringConverter" />
+            <converter:IntToThicknessConverter x:Key="intToThicknessConverter" />
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
+
+
+    <ContentPage.Content>
+        <StackLayout Padding="0,25,0,10">
+            <!--Title-->
+            <control:TitleView                     
+                    BackgroundColor="{DynamicResource PrimaryColor}">
+                <control:TitleView.LeadingView>
+                    <views:GoBackButton />
+                </control:TitleView.LeadingView>
+                <control:TitleView.Content>
+                    <Label
+                        Style="{StaticResource LabelStyle}" 
+                        Text="{Binding Event.EventName}"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Padding="0,8,0,0"/>
+                </control:TitleView.Content>
+                <control:TitleView.TrailingView>
+                    <views:NavigationBar  prism:ViewModelLocator.AutowirePartialView="{x:Reference AddRunnerToEventPage}" />
+                </control:TitleView.TrailingView>
+            </control:TitleView>
+
+            <Grid Padding="10,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <!--Progres Bar and activity indicator-->
+                <StackLayout 
+                Grid.Row="0"
+                Orientation="Vertical" 
+                Margin="0,-30,0,0" >
+                    <stepProgressBar:SfStepProgressBar 
+                    HorizontalOptions="CenterAndExpand" 
+                    VerticalOptions="Center"
+                    Margin="0,30,0,0">
+                        <stepProgressBar:SfStepProgressBar.InProgressStepStyle>
+                            <stepProgressBar:StepStyle
+                            x:TypeArguments="stepProgressBar:InProgressStepState"
+                            MarkerFillColor="{StaticResource PrimaryColor}"
+                            MarkerShapeType="Circle"
+                            MarkerStrokeColor="{StaticResource PrimaryDarkColor}"
+                            ProgressLineColor="{StaticResource PrimaryColor}" />
+                        </stepProgressBar:SfStepProgressBar.InProgressStepStyle>
+
+                        <stepProgressBar:SfStepProgressBar.CompletedStepStyle>
+                            <stepProgressBar:StepStyle
+                            x:TypeArguments="stepProgressBar:CompletedStepState"
+                            MarkerFillColor="{StaticResource PrimaryColor}"
+                            MarkerShapeType="Circle"
+                            MarkerStrokeColor="{StaticResource PrimaryDarkColor}"
+                            ProgressLineColor="{StaticResource PrimaryColor}" />
+                        </stepProgressBar:SfStepProgressBar.CompletedStepStyle>
+                        <stepProgressBar:StepView PrimaryText="Step 1"/>
+                        <stepProgressBar:StepView PrimaryText="Step 2" 
+                                          Status="InProgress">
+                            <stepProgressBar:StepView.PrimaryFormattedText>
+                                <FormattedString>
+                                    <Span
+                                            FontFamily="{StaticResource Montserrat-Bold}"
+                                            Text="Add Runners"
+                                            FontSize="Micro"
+                                            TextColor="{StaticResource Gray-White}" />
+                                </FormattedString>
+                            </stepProgressBar:StepView.PrimaryFormattedText>
+
+                        </stepProgressBar:StepView>
+                        <stepProgressBar:StepView PrimaryText="Step 3" />
+
+                    </stepProgressBar:SfStepProgressBar>
+
+                    <!--Activity indicator-->
+                    <StackLayout HorizontalOptions="Center" WidthRequest="90">
+                        <busyindicator:SfBusyIndicator  
+                                                      AnimationType="ECG"
+                                                      ViewBoxHeight="50"
+                                                      ViewBoxWidth="50"
+                                                      EnableAnimation="True"
+                                                      Duration="0.2"
+                                                      Title="Loading runners..."
+                                                      TextColor="{DynamicResource PrimaryColor}"
+                                                      IsVisible="{Binding IsBusy}" 
+                                                      IsBusy="{Binding IsBusy}" />
+                    </StackLayout>
+                </StackLayout>
+
+                <!--Total runners list section-->
+                <StackLayout Grid.Row="1">
+                    <listView:SfListView
+                        Padding="0"
+                        x:Name="runnerlist"
+                        ItemSpacing="5"
+                        ItemSize="50"
+                        ItemsSource="{Binding Runners}"
+                        AllowGroupExpandCollapse="True"
+                        GroupExpanding="Runnerlist_GroupExpanding" 
+                        Loaded="Runnerlist_Loaded"                        
+                        behaviours:ItemTappedCommandListView.ItemTappedCommand="{Binding MenuItemSelectedCommand}">
+                        <listView:SfListView.DataSource>
+                            <data:DataSource>
+                                <data:DataSource.GroupDescriptors>
+                                    <data:GroupDescriptor PropertyName="Season"/>
+                                </data:DataSource.GroupDescriptors>
+                            </data:DataSource>
+                        </listView:SfListView.DataSource>
+                        <listView:SfListView.GroupHeaderTemplate>
+                            <DataTemplate x:Name="GroupHeaderTemplate">
+                                <ViewCell>
+                                    <ViewCell.View>
+                                        <border:SfBorder CornerRadius="64" >
+                                            <Grid BackgroundColor="{DynamicResource PrimaryColor}" VerticalOptions="Center" HeightRequest="86">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <Label
+                                                    Margin="10,0,0,0"
+                                                    Text="{Binding Key}"
+                                                    TextColor="{DynamicResource Gray-White}"
+                                                    Style="{StaticResource LabelStyle}" VerticalTextAlignment="Center"/>
+                                                <Label
+                                                    Grid.Column="2"
+                                                    Margin="0"
+                                                    FontFamily="{StaticResource FontIcons}"
+                                                    FontSize="25"
+                                                    HorizontalTextAlignment="Center"
+                                                    Text="{StaticResource DropDownButtonIcon}"
+                                                    TextColor="{DynamicResource Gray-600}"
+                                                    VerticalTextAlignment="Center" />
+                                            </Grid>
+                                        </border:SfBorder>
+                                    </ViewCell.View>
+                                </ViewCell>
+                            </DataTemplate>
+                        </listView:SfListView.GroupHeaderTemplate>
+                        <listView:SfListView.ItemTemplate>
+                            <DataTemplate>
+                                <control:CustomShadowFrame
+                                    Margin="0"
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource Gray-White}"
+                                    BorderColor="{DynamicResource Gray-White}"
+                                    CornerRadius="4"
+                                    HasShadow="True">
+                                    <control:CustomShadowFrame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Path=BindingContext.MenuItemSelectedCommand, Source={x:Reference runnerlist}}" CommandParameter="{Binding .}" />
+                                    </control:CustomShadowFrame.GestureRecognizers>
+
+                                    <Grid 
+                                    ColumnSpacing="0" 
+                                    RowSpacing="0"
+                                    HorizontalOptions="FillAndExpand"
+                                    VerticalOptions="FillAndExpand">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="{OnIdiom Default=Auto, Desktop=0.2*}"  />
+                                            <ColumnDefinition Width="{OnIdiom Default=*, Desktop=*}"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--  Gender-->
+
+                                        <Label
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Margin="8,0,0,8"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1"
+                                        helper:RTLHelper.Margin="{OnIdiom Phone='0,0,0,0', Tablet='0,0,4,0',Desktop='0,0,8,0'}"
+                                        FontFamily="{DynamicResource Montserrat-Medium}"
+                                        FontSize="10"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Text="{Binding Gender}"
+                                        TextColor="{DynamicResource Gray-700}" />
+
+                                        <!--Grade-->
+                                        <Label
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        LineBreakMode="TailTruncation"
+                                        LineHeight="{OnPlatform Android=1.25, Default=-1}"  
+                                        MaxLines="2"
+                                        FontFamily="{DynamicResource Montserrat-Medium}"
+                                        FontSize="10"
+                                        HorizontalOptions="CenterAndExpand"
+                                        HorizontalTextAlignment="Start"
+                                        Text="{Binding Grade,StringFormat='Grade:  {0}'}"
+                                        TextColor="{DynamicResource Gray-700}" />
+
+                                        <!--Season-->
+                                        <Label
+                                        Grid.Row="0"
+                                        Grid.Column="2"
+                                        LineBreakMode="TailTruncation"
+                                        LineHeight="{OnPlatform Android=1.25, Default=-1}"  
+                                        Margin="0,0,8,0"
+                                        MaxLines="2"
+                                        FontFamily="{DynamicResource Montserrat-Medium}"
+                                        FontSize="10"
+                                        HorizontalOptions="End"
+                                        HorizontalTextAlignment="Center"
+                                        Text="{Binding Season}"
+                                        TextColor="{DynamicResource Gray-700}" />
+
+                                        <!--  Name   -->
+                                        <Label
+                                        Grid.Column="1"
+                                        Grid.Row="1"
+                                        Margin="0,0,0,8"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1"
+                                        Style="{StaticResource LabelStyle}"
+                                        FontFamily="{DynamicResource Montserrat-SemiBold}"
+                                        FontSize="14"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalTextAlignment="Center"
+                                        Text="{Binding Name}"
+                                        TextColor="{DynamicResource Gray-Black}" />
+                                    </Grid>
+                                </control:CustomShadowFrame>
+                            </DataTemplate>
+                        </listView:SfListView.ItemTemplate>
+                    </listView:SfListView>
+
+                </StackLayout>
+
+                <!--Added runners section-->
+                <StackLayout Grid.Row="2">
+                    <expander:SfExpander 
+                    x:Name="Expander"
+                    IsExpanded="False" 
+                    HeaderIconPosition="None"
+                    IconColor="{DynamicResource Gray-White}"
+                    HeaderBackgroundColor="{DynamicResource Gray-Black}">
+
+                        <expander:SfExpander.Header>
+                            <StackLayout 
+                            Orientation="Horizontal" 
+                            VerticalOptions="Center"
+                            HorizontalOptions="StartAndExpand">
+                                <badge:SfBadgeView
+                                Margin="{Binding SelectedRunnersCount, Converter={x:StaticResource intToThicknessConverter}}"
+                                Padding="0,20,10,0"
+                                BadgeText="{Binding SelectedRunnersCount,Mode=TwoWay}">
+                                    <badge:SfBadgeView.Content>
+                                        <Label 
+                                        FontFamily="{StaticResource MaterialIcons}" 
+                                        Text="&#xe566;"
+                                        FontSize="Medium"
+                                        Style="{StaticResource LabelStyle}" 
+                                        HorizontalOptions="StartAndExpand"/>
+                                    </badge:SfBadgeView.Content>
+                                    <badge:SfBadgeView.BadgeSettings>
+                                        <badge:BadgeSetting
+                                        BackgroundColor="Red"
+                                        BadgeType="None"
+                                        BadgeAnimation="Scale"
+                                        FontSize="9"
+                                        Offset="5,10" />
+                                    </badge:SfBadgeView.BadgeSettings>
+                                </badge:SfBadgeView>
+                                <!--<Label 
+                                Padding="0,5,0,0"
+                                Text="Signed Runners"
+                                LineHeight="1"
+                                Style="{StaticResource LabelStyle}">                                
+                            </Label>-->
+                            </StackLayout>
+                        </expander:SfExpander.Header>
+
+                        <expander:SfExpander.Content>
+                            <control:CustomShadowFrame
+                            Padding="10,0"
+                            BackgroundColor="{DynamicResource Gray-White}"
+                            BorderColor="{DynamicResource PrimaryColor}"
+                            BorderWidth="20"
+                            CornerRadius="4"
+                            HasShadow="True">
+                                <listView:SfListView
+                            x:Name="addedrunnerlist"
+                              
+                            ItemSpacing="0"
+                            ItemSize="25"
+                            Padding="0,10,-10,10"
+                            VerticalOptions="Center"
+                            ItemsSource="{Binding SelectedRunners}">
+
+                                    <listView:SfListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackLayout 
+                                        Orientation="Horizontal"
+                                        HorizontalOptions="FillAndExpand"
+                                        x:Name="Item" 
+                                        Margin="0">
+                                                <Label 
+                                            TextColor="{DynamicResource Gray-Black}"
+                                            Text="{Binding Name}"
+                                            Style="{StaticResource LabelStyle}"
+                                            VerticalTextAlignment="Center">
+                                                </Label>
+                                                <Label 
+                                            FontSize="10"
+                                            TextColor="{DynamicResource Gray-Black}"
+                                            FontFamily="{DynamicResource Montserrat-Medium}"
+                                            Text="{Binding Grade, StringFormat=' ,Grade {0}'}"
+                                            Style="{StaticResource LabelStyle}" 
+                                            HorizontalTextAlignment="Start"
+                                            VerticalTextAlignment="Center"/>
+                                                <badge:SfBadgeView
+                                            HorizontalOptions="EndAndExpand" >
+                                                    <badge:SfBadgeView.Content>
+                                                        <buttons:SfButton
+                                                    BindingContext="{Binding Source={x:Reference AddRunnerToEventPage}, Path=BindingContext}"
+                                                    Command="{Binding RemoveRunnerCommand}" CommandParameter="{Binding Source={x:Reference Item},Path=BindingContext}"
+                                                    TextColor="Red"
+                                                    FontFamily="{StaticResource MaterialIcons}"
+                                                    BackgroundColor="{DynamicResource Gray-White}"
+                                                    Text="&#xe15d;" Margin="0,-7,0,0"/>
+                                                    </badge:SfBadgeView.Content>
+                                                </badge:SfBadgeView>
+                                            </StackLayout>
+                                        </DataTemplate>
+                                    </listView:SfListView.ItemTemplate>
+                                </listView:SfListView>
+                            </control:CustomShadowFrame>
+                        </expander:SfExpander.Content>
+                    </expander:SfExpander>
+                </StackLayout>
+
+                <!--Control buttons section-->
+                <StackLayout Grid.Row="3" Orientation="Vertical">
+                    <buttons:SfButton
+                        HorizontalOptions="Start"
+                        FontFamily="{StaticResource MaterialIcons}"
+                        Text="&#xe01f;"
+                        Style="{StaticResource SfButtonStyle}"
+                        Command="{Binding SaveEventCommand}">
+                    </buttons:SfButton>
+                    <Label Style="{StaticResource LabelStyle}"
+                       Text="next"
+                       Margin="10,0,0,0"
+                       FontSize="12"/>
+                </StackLayout>
+            </Grid>
+            <!--Ads-->
+            <StackLayout 
+                    Padding="0" 
+                    HorizontalOptions="FillAndExpand" 
+                    VerticalOptions="FillAndExpand">
+                <control:AdMobView WidthRequest="320" HeightRequest="50" />
+            </StackLayout>
+
+        </StackLayout>
+
+    </ContentPage.Content>
+</ContentPage>
+
