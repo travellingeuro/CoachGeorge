@@ -81,6 +81,9 @@
     <PackageReference Include="Syncfusion.Xamarin.SfCalendar">
       <Version>17.4.0.43</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.SfChart">
+      <Version>17.4.0.43</Version>
+    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfComboBox">
       <Version>17.4.0.43</Version>
     </PackageReference>

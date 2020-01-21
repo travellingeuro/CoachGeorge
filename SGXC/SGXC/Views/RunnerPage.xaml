@@ -251,22 +251,38 @@
 
                                             <!--Erase badge button-->
 
-                                            <badge:SfBadgeView  
-                                                            Grid.Row="1"
-                                                            Grid.Column="2">
+                                            <badge:SfBadgeView
+                                                Grid.Row="1"
+                                                Grid.Column="2">
                                                 <badge:SfBadgeView.Content>
-                                                    <buttons:SfButton                                                                    
-                                                                     BindingContext="{Binding Source={x:Reference runnerlist}, Path=BindingContext}"
-                                                                     Command="{Binding OpenPopupCommand}" CommandParameter="{Binding Source={x:Reference                                                                                        Item},Path=BindingContext}"                                                                   
-                                                                     TextColor="Red"                                                                    
-                                                                     FontSize="16"
-                                                                     FontFamily="{StaticResource MaterialIcons}"
-                                                                     BackgroundColor="{DynamicResource Gray-White}"
-                                                                     Text="&#xe15d;"
-                                                                     HorizontalOptions="End"/>
+                                                    <buttons:SfButton                                                        
+                                                        BindingContext="{Binding Source={x:Reference runnerlist}, Path=BindingContext}"
+                                                        Command="{Binding OpenPopupCommand}" CommandParameter="{Binding Source={x:Reference Item},Path=BindingContext}" 
+                                                        TextColor="Red"
+                                                        FontSize="16"
+                                                        FontFamily="{StaticResource MaterialIcons}"
+                                                        BackgroundColor="{DynamicResource Gray-White}"
+                                                        Text="&#xe15d;"
+                                                        HorizontalOptions="End"/>
                                                 </badge:SfBadgeView.Content>
                                             </badge:SfBadgeView>
 
+                                            <!--Show statistics button-->
+                                            <badge:SfBadgeView                                                
+                                                Grid.Row="1"
+                                                Grid.Column="0">
+                                                <badge:SfBadgeView.Content>
+                                                    <buttons:SfButton                                                         
+                                                        BindingContext="{Binding Source={x:Reference runnerlist}, Path=BindingContext}"
+                                                        Command="{Binding NavigateToStatsCommand}" CommandParameter="{Binding Source={x:Reference Item},Path=BindingContext}"  
+                                                        TextColor="Black"
+                                                        FontSize="16"
+                                                        FontFamily="{StaticResource MaterialIcons}"
+                                                        BackgroundColor="{DynamicResource Gray-White}"
+                                                        Text="&#xe01d;"
+                                                        HorizontalOptions="Start"/>
+                                                </badge:SfBadgeView.Content>
+                                            </badge:SfBadgeView>
 
                                         </Grid>
                                     </control:CustomShadowFrame>

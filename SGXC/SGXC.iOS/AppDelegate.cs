@@ -1,3 +1,4 @@
+using Syncfusion.SfChart.XForms.iOS.Renderers;
 using Foundation;
 using Prism;
 using Prism.Ioc;
@@ -41,7 +42,8 @@ namespace SGXC.iOS
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTU0ODY4QDMxMzcyZTMzMmUzMEU4QWhNRUEwN05VM2cwaTFzV1RSWk1oemxOYklnbTA4SHpsc3hHTFZiNW89");
             Google.MobileAds.MobileAds.Configure("ca-app-pub-9800707284712065~3426477994");
-            global::Xamarin.Forms.Forms.Init();
+global::Xamarin.Forms.Forms.Init();
+SfChartRenderer.Init();
             SfSwitchRenderer.Init();
             SfTextInputLayoutRenderer.Init();
             SfImageEditorRenderer.Init();
