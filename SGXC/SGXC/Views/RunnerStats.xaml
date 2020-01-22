@@ -3,26 +3,80 @@
 xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:control="clr-namespace:SGXC.Controls"
+             xmlns:views="clr-namespace:SGXC.Views"
              prism:ViewModelLocator.AutowireViewModel="True"
+             x:Name="runnerstatspage"
              x:Class="SGXC.Views.RunnerStats">
-    <chart:SfChart>
-        <chart:SfChart.Title>
-            <chart:ChartTitle Text="Chart" />
-        </chart:SfChart.Title>
-        <chart:SfChart.PrimaryAxis>
-            <chart:NumericalAxis>
-                <chart:NumericalAxis.Title>
-                    <chart:ChartAxisTitle Text="X Axis" />
-                </chart:NumericalAxis.Title>
-            </chart:NumericalAxis>
-        </chart:SfChart.PrimaryAxis>
-        <chart:SfChart.SecondaryAxis>
-            <chart:NumericalAxis>
-                <chart:NumericalAxis.Title>
-                    <chart:ChartAxisTitle Text="Y Axis" />
-                </chart:NumericalAxis.Title>
-            </chart:NumericalAxis>
-        </chart:SfChart.SecondaryAxis>
-        <chart:ColumnSeries ItemsSource="{Binding Data}" YBindingPath="YValue" XBindingPath="XValue" />
-    </chart:SfChart>
+    
+    <ContentPage.Resources>        
+        <ResourceDictionary>            
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Sync\Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>        
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout 
+            Padding="0,25,0,10" 
+            VerticalOptions="FillAndExpand" 
+            HorizontalOptions="FillAndExpand">
+      
+            
+            <!--Title-->
+            <control:TitleView
+                BackgroundColor="{DynamicResource PrimaryColor}">
+                <control:TitleView.LeadingView>
+                    <views:GoBackButton/>
+                </control:TitleView.LeadingView>
+                <control:TitleView.Content>
+                    <Label
+                        Style="{StaticResource LabelStyle}" 
+                        Text="{Binding Runner.Name}"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="2"
+                        Padding="0,8,0,0"/>
+                </control:TitleView.Content>
+                <control:TitleView.TrailingView>
+                    <views:NavigationBar  prism:ViewModelLocator.AutowirePartialView="{x:Reference runnerstatspage}" />
+                </control:TitleView.TrailingView>
+            </control:TitleView>
+            
+            <!--Chart-->
+            <chart:SfChart 
+                VerticalOptions="FillAndExpand" 
+                HorizontalOptions="FillAndExpand">
+                <chart:SfChart.Title>
+                    <chart:ChartTitle Text="Chart" />
+                </chart:SfChart.Title>
+                <chart:SfChart.PrimaryAxis>
+                    <chart:NumericalAxis>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="X Axis" />
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfChart.PrimaryAxis>
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="Y Axis" />
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfChart.SecondaryAxis>
+                <chart:ColumnSeries ItemsSource="{Binding Data}" YBindingPath="YValue" XBindingPath="XValue" />
+            </chart:SfChart>
+
+
+            <!--Ads-->
+            <StackLayout
+                Padding="0" 
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand">
+                <control:AdMobView WidthRequest="320" HeightRequest="50" />
+            </StackLayout>
+        </StackLayout>
+
+
+    </ContentPage.Content>
 </ContentPage>

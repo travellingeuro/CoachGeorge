@@ -23,7 +23,6 @@ namespace SGXC.Services
         public async Task<List<Runner>> GetAllRunners()
 
         {
-
             return await Connection.Table<Runner>().ToListAsync();
         }
 
