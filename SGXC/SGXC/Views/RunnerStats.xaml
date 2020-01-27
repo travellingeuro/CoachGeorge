@@ -24,7 +24,7 @@ xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart
             HorizontalOptions="FillAndExpand">
       
             
-            <!--Title-->
+            <!--Title--><!--
             <control:TitleView
                 BackgroundColor="{DynamicResource PrimaryColor}">
                 <control:TitleView.LeadingView>
@@ -41,7 +41,7 @@ xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart
                 <control:TitleView.TrailingView>
                     <views:NavigationBar  prism:ViewModelLocator.AutowirePartialView="{x:Reference runnerstatspage}" />
                 </control:TitleView.TrailingView>
-            </control:TitleView>
+            </control:TitleView>-->
             
             <!--Chart-->
             <chart:SfChart 
@@ -69,12 +69,12 @@ xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart
 
 
             <!--Ads-->
-            <StackLayout
+            <!--<StackLayout
                 Padding="0" 
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <control:AdMobView WidthRequest="320" HeightRequest="50" />
-            </StackLayout>
+            </StackLayout>-->
         </StackLayout>
 
 
