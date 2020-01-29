@@ -17,5 +17,6 @@ namespace SGXC.Services
         Task<Runner> GetRunner(int RunnerId);
         Task<int> DeleteTime(string distance, int id);
         Task<int> DeleteNullEventIdTimes();
+        Task<List<Time>> GetListOfTimesbyRunnerId(int RunnerId);
     }
 }

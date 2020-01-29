@@ -44,6 +44,8 @@ namespace SGXC
             containerRegistry.Register<IRunnerServices, RunnerServices>();
             containerRegistry.Register<ITimeServices, TimeServices>();
             containerRegistry.Register<IPdfServices, PdfServices>();
+            containerRegistry.Register<IStatsService, StatsService>();
+
             containerRegistry.RegisterForNavigation<AddRunnerPage, AddRunnerPageViewModel>();
             containerRegistry.RegisterForNavigation<AddEventPage, AddEventPageViewModel>();
             containerRegistry.RegisterForNavigation<AddRunnerToEvent, AddRunnerToEventViewModel>();
@@ -52,6 +54,7 @@ namespace SGXC
             containerRegistry.RegisterForNavigation<EventsPage, EventsPageViewModel>();
             containerRegistry.RegisterForNavigation<SetLogoPage, SetLogoPageViewModel>();
             containerRegistry.RegisterForNavigation<EventDetailsPage, EventDetailsPageViewModel>();
+
             containerRegistry.RegisterForNavigation<RunnerStats, RunnerStatsViewModel>();
         }
     }

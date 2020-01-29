@@ -1,30 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:control="clr-namespace:SGXC.Controls"
              xmlns:views="clr-namespace:SGXC.Views"
+             xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Name="runnerstatspage"
-             x:Class="SGXC.Views.RunnerStats">
-    
-    <ContentPage.Resources>        
-        <ResourceDictionary>            
+             BackgroundColor="{DynamicResource Gray-Black}"
+             NavigationPage.HasNavigationBar="False"
+             x:Name="RunnerStatsPage"
+             x:Class="SGXC.Views.RunnerStats"
+             Style="{StaticResource ContentPageStyle}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Sync\Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>        
+        </ResourceDictionary>
     </ContentPage.Resources>
-    
     <ContentPage.Content>
         <StackLayout 
             Padding="0,25,0,10" 
             VerticalOptions="FillAndExpand" 
             HorizontalOptions="FillAndExpand">
-      
-            
-            <!--Title--><!--
+            <!--Title-->
             <control:TitleView
                 BackgroundColor="{DynamicResource PrimaryColor}">
                 <control:TitleView.LeadingView>
@@ -39,44 +38,42 @@ xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart
                         Padding="0,8,0,0"/>
                 </control:TitleView.Content>
                 <control:TitleView.TrailingView>
-                    <views:NavigationBar  prism:ViewModelLocator.AutowirePartialView="{x:Reference runnerstatspage}" />
+                    <views:NavigationBar  prism:ViewModelLocator.AutowirePartialView="{x:Reference RunnerStatsPage}" />
                 </control:TitleView.TrailingView>
-            </control:TitleView>-->
-            
+            </control:TitleView>
+
             <!--Chart-->
+            
             <chart:SfChart 
                 VerticalOptions="FillAndExpand" 
                 HorizontalOptions="FillAndExpand">
                 <chart:SfChart.Title>
-                    <chart:ChartTitle Text="Chart" />
+                    <chart:ChartTitle Text="{Binding Prueba.Distance}" />
                 </chart:SfChart.Title>
                 <chart:SfChart.PrimaryAxis>
                     <chart:NumericalAxis>
                         <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="X Axis" />
+                            <chart:ChartAxisTitle Text="Date" />
                         </chart:NumericalAxis.Title>
                     </chart:NumericalAxis>
                 </chart:SfChart.PrimaryAxis>
                 <chart:SfChart.SecondaryAxis>
                     <chart:NumericalAxis>
                         <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="Y Axis" />
+                            <chart:ChartAxisTitle Text="Time" />
                         </chart:NumericalAxis.Title>
                     </chart:NumericalAxis>
                 </chart:SfChart.SecondaryAxis>
-                <chart:ColumnSeries ItemsSource="{Binding Data}" YBindingPath="YValue" XBindingPath="XValue" />
+                <chart:ColumnSeries ItemsSource="{Binding Prueba.PracticeResults}" YBindingPath="Date" XBindingPath="Time" />
             </chart:SfChart>
 
-
-            <!--Ads-->
-            <!--<StackLayout
+            <StackLayout
                 Padding="0" 
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand">
                 <control:AdMobView WidthRequest="320" HeightRequest="50" />
-            </StackLayout>-->
+            </StackLayout>
+
         </StackLayout>
-
-
     </ContentPage.Content>
 </ContentPage>

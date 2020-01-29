@@ -88,6 +88,12 @@ namespace SGXC.Services
             return listoftime;
         }
 
+        public async Task<List<Time>> GetListOfTimesbyRunnerId( int RunnerId)
+        {
+            List<Time> listoftime = await Connection.Table<Time>().Where(e => e.RunnerId == RunnerId).ToListAsync();
+            return listoftime;
+        }
+
 
         public async Task<int> DeleteTime(string d, int e)
         {

@@ -14,11 +14,11 @@ namespace SGXC.Models.Helper
             set { SetProperty(ref season, value); }
         }
 
-        private List<RaceResult> raceResults;
+        private List<RaceResult> raceresults;
         public List<RaceResult> RaceResults
         {
-            get { return raceResults; }
-            set { SetProperty(ref raceResults, value); }
+            get { return raceresults; }
+            set { SetProperty(ref raceresults, value); }
         }
     }
 }

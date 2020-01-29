@@ -18,7 +18,7 @@ namespace SGXC.ViewModels
         public DelegateCommand NavigateToAddRunnerPageCommand { get; set; }
         public ICommand MenuItemSelectedCommand => new Command<Runner>(OnSelectMenuItem);
         public ICommand OpenPopupCommand => new Command<Runner>(OpenPopupMethod);
-        public ICommand NavigateToStatsCommand => new Command<Runner>(NavigateToStatsMethod);
+        public DelegateCommand<Runner> NavigateToStatsCommand { get; set; }
         public ICommand Delete => new Command<SfPopupLayout>(DeleteEventMethod);
 
 
@@ -73,6 +73,7 @@ namespace SGXC.ViewModels
         {
             NavigationService = navigationService;
             NavigateToAddRunnerPageCommand = new DelegateCommand(NavigateToAddRunnerPage);
+            NavigateToStatsCommand = new DelegateCommand<Runner>(NavigateToStatsMethod);
             SqlServices = dbservices;
             RunnerServices = runnerServices;
             Connection = SqlServices.GetConnection();
@@ -117,7 +118,7 @@ namespace SGXC.ViewModels
         private void NavigateToStatsMethod(Runner obj)
         {
             var parameters = new NavigationParameters { { "runner", obj } };
-            NavigationService.NavigateAsync("RunnerStats", parameters, useModalNavigation: true);
+            NavigationService.NavigateAsync("RunnerStats",parameters);
         }
 
         private async void DeleteEventMethod(SfPopupLayout obj)

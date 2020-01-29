@@ -25,55 +25,115 @@ namespace SGXC.Services
             TimeServices = timeServices;
         }
 
+
         public async Task<List<PracticeData>> GetPracticeData(int runnerid)
         {
-            var distances = new List<string> { "100m", "200m", "300m", "400m (1/4 mile)", "600m" ,"800m (1/2 mile)",
-                                                        "1K","1.2K","1.5K","1 mile","2K", "2 mile", "3 mile", "5K", "10K"};
-            var PracticeData = new List<PracticeData>();
+            var practicedata = new List<PracticeData>();
+            //Get times by runner 
+            var listoftimes = await TimeServices.GetListOfTimesbyRunnerId(runnerid);
 
-            //Select run practices of a runner;
-            var listofpractices = new List<Event>();
-            var events = await Connection.Table<RunnerEvent>().Where(r => r.RunnerId == runnerid).ToListAsync();
-            foreach (var @event in events)
+            //Creates list of dates
+            Dictionary<int, DateTime> eventdates = new Dictionary<int, DateTime>();
+            
+
+            //Select times from a events
+            var practices = listoftimes.GroupBy(ev => new { ev.EventId }).Select(grp => grp.First()).ToList();
+            foreach (var practice in practices)
             {
-                var practiceevent = await EventServices.GetEventById(@event.EventId);
-                if (!practiceevent.IsRace && practiceevent.IsRan)
+                var tmpevent=await EventServices.GetEventById(practice.EventId.GetValueOrDefault());
+                //if event is a race remove form the list of races
+                if (tmpevent.IsRace)
                 {
-                    listofpractices.Add(practiceevent);
+                    listoftimes.RemoveAll(e => e.EventId == practice.EventId.GetValueOrDefault());
+                }
+                else
+                //if event is not a race creates a dictionary with Key the event Id and content the race date to use later
+                {
+                    eventdates.Add(tmpevent.Id, tmpevent.RaceDate);
+                    
                 }
             }
 
-            // Create Practice Data
-            for (int i = 0; i < distances.Count; i++)
-            {
-                var data = new PracticeData { Distance = distances[i], PracticeResults = await Getlistof(listofpractices, distances[i]) };
-                PracticeData.Add(data);
-            }
-            return PracticeData;
+            //creates PracticeData
+            var grouprun = listoftimes.GroupBy(d => d.Distance).ToList();
 
-        }
-
-        //Creates a list of practice result for each distance of every event
-        private async Task<List<PracticeResult>> Getlistof(List<Event> listofpractices, string distance)
-        {
-            var PracticeResults = new List<PracticeResult>();
-            foreach (var practice in listofpractices)
+            foreach (var group in grouprun)
             {
-                var listoftimes = await TimeServices.GetListOfTimesbyEventId(practice.Id);
-                listoftimes.Select(d => d.Distance == distance);
-                foreach (var time in listoftimes)
+                var practiceresults = new List<PracticeResult>();
+
+                foreach (var run in group)
                 {
-                    var newpracticeresult = new PracticeResult { Date = practice.RaceDate, Time = time.Times };
-                    PracticeResults.Add(newpracticeresult);
+                    
+                    var practiceresult = new PracticeResult { Time = run.Times, Date = eventdates[run.EventId.GetValueOrDefault()] };
+                    practiceresults.Add(practiceresult);
                 }
+                var practice = new PracticeData { Distance = group.Key, PracticeResults= practiceresults };
+                practicedata.Add(practice);
             }
-            return PracticeResults;
+
+            return practicedata;
+
         }
 
 
         public async Task<List<RaceData>> GetRaceData(int runnerid)
         {
-            throw new NotImplementedException();
+            var racedata = new List<RaceData>();
+            //Get times by runner 
+            var listoftimes = await TimeServices.GetListOfTimesbyRunnerId(runnerid);
+
+            //Creates list of dates
+            Dictionary<int, DateTime> eventdates = new Dictionary<int, DateTime>();
+            Dictionary<int, string> eventseason = new Dictionary<int, string>();
+
+            //Select times from a events
+            var practices = listoftimes.GroupBy(ev => new { ev.EventId }).Select(grp => grp.First()).ToList();
+            foreach (var practice in practices)
+            {
+                var tmpevent = await EventServices.GetEventById(practice.EventId.GetValueOrDefault());
+                //if event is not a race remove form the list of races
+                if (!tmpevent.IsRace)
+                {
+                    listoftimes.RemoveAll(e => e.EventId == practice.EventId.GetValueOrDefault());
+                }
+                else
+                //if event is a race creates a dictionary with Key the event Id and content the race date to use later
+                {
+                    eventdates.Add(tmpevent.Id, tmpevent.RaceDate);
+                    eventseason.Add(tmpevent.Id, tmpevent.Season);
+                }
+            }
+            //Creates RaceData
+            //Group list of times by Season
+
+            foreach (var time in listoftimes)
+            {
+
+            }
+
+
+            //foreach (var group in grouprun)
+            //{
+            //    var besttime = new TimeSpan();
+            //    var times = new List<TimeSpan>();
+
+            //    foreach (var run in group)
+            //    {
+
+            //        var partialtime = run.Times;
+            //        times.Add(partialtime);
+            //    }
+
+            //    besttime = times.Max();
+            //    var raceresult = new RaceResult { Time = besttime, Date = eventdates[group.Key.GetValueOrDefault()] };
+            //    var race = new RaceData { Season = eventseason[group.Key.GetValueOrDefault()], RaceResults = raceresult };
+            //    racedata.Add(race);
+
+            //}
+
+            return racedata;
         }
+
+
     }
 }

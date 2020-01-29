@@ -7,11 +7,11 @@ namespace SGXC.Models.Helper
 {
     public class RaceResult:BindableBase
     {
-        private Event eventid;
-        public Event EventId
+        private DateTime date;
+        public DateTime Date
         {
-            get { return eventid; }
-            set { SetProperty(ref eventid, value); }
+            get { return date; }
+            set { SetProperty(ref date, value); }
         }
 
         private TimeSpan time;
