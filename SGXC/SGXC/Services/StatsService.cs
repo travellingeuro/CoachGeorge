@@ -86,7 +86,7 @@ namespace SGXC.Services
             Dictionary<int, DateTime> eventdates = new Dictionary<int, DateTime>();
             Dictionary<int, string> eventseason = new Dictionary<int, string>();
 
-            //Select times from a events
+            //Select times from a event 
             var practices = listoftimes.GroupBy(ev => new { ev.EventId }).Select(grp => grp.First()).ToList();
             foreach (var practice in practices)
             {
@@ -106,30 +106,23 @@ namespace SGXC.Services
             //Creates RaceData
             //Group list of times by Season
 
-            foreach (var time in listoftimes)
+            
+            var groupseason = eventseason.GroupBy(d => d.Value);           
+
+            foreach (var group in groupseason)
             {
+                var raceresults = new List<RaceResult>();
 
+               foreach (var id in group)
+                {
+                    var racesplits = listoftimes.Where(e => e.EventId == id.Key).ToList();
+                    var raceresult = new RaceResult { Date = eventdates[id.Key], Time = racesplits.Last().Times, 
+                                                        Distance = racesplits.Last().Distance };
+                    raceresults.Add(raceresult);
+                }
+                var races = new RaceData { Season = group.Key, RaceResults = raceresults };
+                racedata.Add(races);
             }
-
-
-            //foreach (var group in grouprun)
-            //{
-            //    var besttime = new TimeSpan();
-            //    var times = new List<TimeSpan>();
-
-            //    foreach (var run in group)
-            //    {
-
-            //        var partialtime = run.Times;
-            //        times.Add(partialtime);
-            //    }
-
-            //    besttime = times.Max();
-            //    var raceresult = new RaceResult { Time = besttime, Date = eventdates[group.Key.GetValueOrDefault()] };
-            //    var race = new RaceData { Season = eventseason[group.Key.GetValueOrDefault()], RaceResults = raceresult };
-            //    racedata.Add(race);
-
-            //}
 
             return racedata;
         }

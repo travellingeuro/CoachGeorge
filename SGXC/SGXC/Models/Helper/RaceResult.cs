@@ -20,5 +20,12 @@ namespace SGXC.Models.Helper
             get { return time; }
             set { SetProperty(ref time, value); }
         }
+
+        private string distance;
+        public string Distance
+        {
+            get { return distance; }
+            set { SetProperty(ref distance, value); }
+        }
     }
 }

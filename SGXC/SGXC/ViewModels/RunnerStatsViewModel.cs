@@ -30,12 +30,7 @@ namespace SGXC.ViewModels
             set { SetProperty(ref practicedata, value); }
         }
 
-        private PracticeData prueba=new PracticeData();
-        public PracticeData Prueba
-        {
-            get { return prueba; }
-            set { SetProperty(ref prueba, value); }
-        }
+
         private List<RaceData> racetest=new List<RaceData>();
         public List<RaceData> RaceTest
         {
@@ -56,10 +51,8 @@ namespace SGXC.ViewModels
 
         public async void LoadData(int id)
         {
-           PracticeData= await StatsService.GetPracticeData(id);
-           Prueba = PracticeData[0];
+           PracticeData= await StatsService.GetPracticeData(id);           
            RaceTest = await StatsService.GetRaceData(id);
-
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
