@@ -65,7 +65,7 @@ namespace SGXC.Services
                 foreach (var run in group)
                 {
                     
-                    var practiceresult = new PracticeResult { MaxTime=run.Times, MinTime=run.Times,Date = eventdates[run.EventId.GetValueOrDefault()] };                    
+                    var practiceresult = new PracticeResult { MaxTime=run.Times.TotalMilliseconds, MinTime=run.Times.TotalMilliseconds,Date = eventdates[run.EventId.GetValueOrDefault()] };                    
                     practiceresults.Add(practiceresult);
                 }
 

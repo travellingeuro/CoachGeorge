@@ -73,17 +73,28 @@
                     BackgroundColor="#F0F0F0">
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
-                            <cardLayout:SfCardView BackgroundColor="{DynamicResource Gray-200}">
+                            <cardLayout:SfCardView BackgroundColor="{DynamicResource Gray-200}" >
                                 <!--<Label Text="{Binding Distance}" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Start"/>-->
                                 <chart:SfChart>
-                                    <chart:SfChart.SecondaryAxis>
-                                        <chart:DateTimeAxis/>
-                                    </chart:SfChart.SecondaryAxis>
-                                    <chart:SfChart.PrimaryAxis >
-                                        <chart:DateTimeAxis/>
+                                    <chart:SfChart.Title>
+
+                                        <chart:ChartTitle Text="{Binding Distance}" />
+
+                                    </chart:SfChart.Title>
+
+                                    <chart:SfChart.PrimaryAxis>
+                                        
+                                        <chart:DateTimeCategoryAxis Interval="1" IntervalType="Days"/>
+                                        
                                     </chart:SfChart.PrimaryAxis>
+
+                                    <chart:SfChart.SecondaryAxis>
+                                        <chart:NumericalAxis LabelCreated="NumericalAxis_LabelCreated"/>
+                                    </chart:SfChart.SecondaryAxis>
+                                    
                                     <chart:SfChart.Series>
-                                        <chart:SplineRangeAreaSeries ItemsSource="{Binding PracticeResults}" XBindingPath="Date" High="MaxTime" Low="MinTime"/>
+                                        <chart:RangeAreaSeries  x:Name="chart1" 
+                                                                     ItemsSource="{Binding PracticeResults}" XBindingPath="Date" High="MaxTime" Low="MinTime"/>
                                     </chart:SfChart.Series>
                                 </chart:SfChart>
                             </cardLayout:SfCardView>
