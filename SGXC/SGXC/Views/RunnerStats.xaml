@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:cardLayout="clr-namespace:Syncfusion.XForms.Cards;assembly=Syncfusion.Cards.XForms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:control="clr-namespace:SGXC.Controls"
@@ -19,10 +20,13 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
+
+        <!--general boundaries-->
         <StackLayout 
             Padding="0,25,0,10" 
             VerticalOptions="FillAndExpand" 
             HorizontalOptions="FillAndExpand">
+
             <!--Title-->
             <control:TitleView
                 BackgroundColor="{DynamicResource PrimaryColor}">
@@ -32,7 +36,7 @@
                 <control:TitleView.Content>
                     <Label
                         Style="{StaticResource LabelStyle}" 
-                        Text="{Binding Runner.Name}"
+                        Text="{Binding Runner.Name, StringFormat='Statistics for: {0}'}"
                         LineBreakMode="TailTruncation"
                         MaxLines="2"
                         Padding="0,8,0,0"/>
@@ -42,31 +46,80 @@
                 </control:TitleView.TrailingView>
             </control:TitleView>
 
-            <!--Chart-->
-            
-            <chart:SfChart 
-                VerticalOptions="FillAndExpand" 
-                HorizontalOptions="FillAndExpand">
-                <chart:SfChart.Title>
-                    <chart:ChartTitle Text="{Binding Prueba.Distance}" />
-                </chart:SfChart.Title>
-                <chart:SfChart.PrimaryAxis>
-                    <chart:NumericalAxis>
-                        <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="Date" />
-                        </chart:NumericalAxis.Title>
-                    </chart:NumericalAxis>
-                </chart:SfChart.PrimaryAxis>
-                <chart:SfChart.SecondaryAxis>
-                    <chart:NumericalAxis>
-                        <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="Time" />
-                        </chart:NumericalAxis.Title>
-                    </chart:NumericalAxis>
-                </chart:SfChart.SecondaryAxis>
-                <chart:ColumnSeries ItemsSource="{Binding Prueba.PracticeResults}" YBindingPath="Date" XBindingPath="Time" />
-            </chart:SfChart>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
+                <Label 
+                    Grid.Row="0"
+                    Style="{StaticResource LabelStyle}" 
+                    Text="Practices"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
+                    Padding="0,8,0,0"/>
+
+
+                <cardLayout:SfCardLayout 
+                    Grid.Row="1"
+                    BindableLayout.ItemsSource="{Binding PracticeData}"  
+                    SwipeDirection="Left" 
+                    VerticalOptions="Center"  
+                    HeightRequest="300" 
+                    WidthRequest="300" 
+                    BackgroundColor="#F0F0F0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <cardLayout:SfCardView BackgroundColor="{DynamicResource Gray-200}">
+                                <!--<Label Text="{Binding Distance}" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Start"/>-->
+                                <chart:SfChart>
+                                    <chart:SfChart.SecondaryAxis>
+                                        <chart:DateTimeAxis/>
+                                    </chart:SfChart.SecondaryAxis>
+                                    <chart:SfChart.PrimaryAxis >
+                                        <chart:DateTimeAxis/>
+                                    </chart:SfChart.PrimaryAxis>
+                                    <chart:SfChart.Series>
+                                        <chart:SplineRangeAreaSeries ItemsSource="{Binding PracticeResults}" XBindingPath="Date" High="MaxTime" Low="MinTime"/>
+                                    </chart:SfChart.Series>
+                                </chart:SfChart>
+                            </cardLayout:SfCardView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </cardLayout:SfCardLayout>
+
+
+                <Label 
+                    Grid.Row="2"
+                    Style="{StaticResource LabelStyle}" 
+                    Text="Races"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="2"
+                    Padding="0,8,0,0"/>
+                <cardLayout:SfCardLayout 
+                    Grid.Row="3"
+                    BindableLayout.ItemsSource="{Binding RaceData}"  
+                    SwipeDirection="Left" 
+                    VerticalOptions="Center"  
+                    HeightRequest="300" 
+                    WidthRequest="300" 
+                    BackgroundColor="#F0F0F0">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <cardLayout:SfCardView BackgroundColor="{DynamicResource Gray-200}">
+                                <Label Text="{Binding Season}" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                            </cardLayout:SfCardView>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </cardLayout:SfCardLayout>
+
+            </Grid>
+
+
+            <!--Ads section-->
             <StackLayout
                 Padding="0" 
                 HorizontalOptions="FillAndExpand"

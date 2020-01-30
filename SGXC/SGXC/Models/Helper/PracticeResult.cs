@@ -12,11 +12,18 @@ namespace SGXC.Models.Helper
             set { SetProperty(ref date, value); }
         }
 
-        private TimeSpan time;
-        public TimeSpan Time
+        private TimeSpan mintime;
+        public TimeSpan MinTime
         {
-            get { return time; }
-            set { SetProperty(ref time, value); }
+            get { return mintime; }
+            set { SetProperty(ref mintime, value); }
+        }
+
+        private TimeSpan maxtime;
+        public TimeSpan MaxTime
+        {
+            get { return maxtime; }
+            set { SetProperty(ref maxtime, value); }
         }
     }
 }

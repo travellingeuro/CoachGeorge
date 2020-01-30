@@ -56,6 +56,7 @@ namespace SGXC.Services
 
             //creates PracticeData
             var grouprun = listoftimes.GroupBy(d => d.Distance).ToList();
+                       
 
             foreach (var group in grouprun)
             {
@@ -64,9 +65,27 @@ namespace SGXC.Services
                 foreach (var run in group)
                 {
                     
-                    var practiceresult = new PracticeResult { Time = run.Times, Date = eventdates[run.EventId.GetValueOrDefault()] };
+                    var practiceresult = new PracticeResult { MaxTime=run.Times, MinTime=run.Times,Date = eventdates[run.EventId.GetValueOrDefault()] };                    
                     practiceresults.Add(practiceresult);
                 }
+
+                //Select the lower and higher times if there is more than one for a given distance i n a day
+                var tmpresults=practiceresults.GroupBy(d => d.Date).ToList();
+                foreach (var date in tmpresults)
+                {
+                    if (date.Count()>1)
+                    {
+                        var maxtime=date.Max(t => t.MaxTime);
+                        var mintime = date.Min(t => t.MaxTime);
+                        var practiceresult = new PracticeResult { Date = date.Key, MaxTime = maxtime, MinTime = mintime };
+                        //erase the various entries with same date and distance
+                        practiceresults.RemoveAll(d => d.Date == date.Key);
+                        //add a single entry with the maxtime and mintime of the day
+                        practiceresults.Add(practiceresult);
+                    }
+                }
+
+                //Add practices results to each distance
                 var practice = new PracticeData { Distance = group.Key, PracticeResults= practiceresults };
                 practicedata.Add(practice);
             }

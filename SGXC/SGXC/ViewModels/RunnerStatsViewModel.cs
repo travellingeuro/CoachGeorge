@@ -23,7 +23,7 @@ namespace SGXC.ViewModels
             set { SetProperty(ref runner, value); }
         }
 
-        private List<PracticeData> practicedata;
+        private List<PracticeData> practicedata = new List<PracticeData>();
         public List<PracticeData> PracticeData
         {
             get { return practicedata; }
@@ -31,13 +31,15 @@ namespace SGXC.ViewModels
         }
 
 
-        private List<RaceData> racetest=new List<RaceData>();
-        public List<RaceData> RaceTest
+        private List<RaceData> racedata=new List<RaceData>();
+        public List<RaceData> RaceData
         {
-            get { return racetest; }
-            set { SetProperty(ref racetest, value); }
+            get { return racedata; }
+            set { SetProperty(ref racedata, value); }
         }
 
+
+        
         public RunnerStatsViewModel(INavigationService navigationService, IStatsService statsService)
         {
             NavigationService = navigationService;
@@ -52,8 +54,10 @@ namespace SGXC.ViewModels
         public async void LoadData(int id)
         {
            PracticeData= await StatsService.GetPracticeData(id);           
-           RaceTest = await StatsService.GetRaceData(id);
+           RaceData = await StatsService.GetRaceData(id);
         }
+
+               
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -62,7 +66,10 @@ namespace SGXC.ViewModels
             {
                 Runner = (Runner)parameters["runner"];
                 LoadData(Runner.Id);
+               
             }
         }
+
+
     }
 }
