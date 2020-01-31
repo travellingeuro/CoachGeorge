@@ -17,9 +17,16 @@ namespace SGXC.Views
 
             TimeSpan time = TimeSpan.FromMilliseconds(Value);
        
-            e.LabelContent = String.Format("{0:c}", time);
+            e.LabelContent = string.Format("{0:mm\\:ss}", time);
             
 
+        }
+
+        private void chart1_DataMarkerLabelCreated(object sender, Syncfusion.SfChart.XForms.ChartDataMarkerLabelCreatedEventArgs e)
+        {
+            double InputValue = Convert.ToDouble(e.DataMarkerLabel.Label);
+            TimeSpan labeltime = TimeSpan.FromMilliseconds(InputValue);
+            e.DataMarkerLabel.Label = string.Format("{0:mm\\:ss}", labeltime);
         }
     }
 }

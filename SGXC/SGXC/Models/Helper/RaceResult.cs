@@ -14,8 +14,8 @@ namespace SGXC.Models.Helper
             set { SetProperty(ref date, value); }
         }
 
-        private TimeSpan time;
-        public TimeSpan Time
+        private double time;
+        public double Time
         {
             get { return time; }
             set { SetProperty(ref time, value); }

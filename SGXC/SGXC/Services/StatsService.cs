@@ -135,7 +135,7 @@ namespace SGXC.Services
                foreach (var id in group)
                 {
                     var racesplits = listoftimes.Where(e => e.EventId == id.Key).ToList();
-                    var raceresult = new RaceResult { Date = eventdates[id.Key], Time = racesplits.Last().Times, 
+                    var raceresult = new RaceResult { Date = eventdates[id.Key], Time = racesplits.Last().Times.TotalMilliseconds, 
                                                         Distance = racesplits.Last().Distance };
                     raceresults.Add(raceresult);
                 }

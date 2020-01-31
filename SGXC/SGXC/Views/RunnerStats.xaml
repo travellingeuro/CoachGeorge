@@ -14,6 +14,7 @@
              Style="{StaticResource ContentPageStyle}">
     <ContentPage.Resources>
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Sync\Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -77,9 +78,10 @@
                                 <!--<Label Text="{Binding Distance}" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Start"/>-->
                                 <chart:SfChart>
                                     <chart:SfChart.Title>
-
-                                        <chart:ChartTitle Text="{Binding Distance}" />
-
+                                        <chart:ChartTitle Text="{Binding Distance, StringFormat='Max and Min time evolution for {0}'}"
+                                                          Font="{DynamicResource Montserrat-Regular}"
+                                                          FontSize="9"  
+                                                          Margin="0"/>
                                     </chart:SfChart.Title>
 
                                     <chart:SfChart.PrimaryAxis>
@@ -89,13 +91,32 @@
                                     </chart:SfChart.PrimaryAxis>
 
                                     <chart:SfChart.SecondaryAxis>
-                                        <chart:NumericalAxis LabelCreated="NumericalAxis_LabelCreated"/>
+                                        <chart:NumericalAxis LabelCreated="NumericalAxis_LabelCreated"
+                                                             RangePadding="None" >
+                                        <chart:NumericalAxis.Title>
+                                            
+                                                <chart:ChartAxisTitle Text="[mm:ss]" Margin="0" FontSize="8" />
+                                            
+                                            </chart:NumericalAxis.Title>
+                                        </chart:NumericalAxis>
                                     </chart:SfChart.SecondaryAxis>
                                     
                                     <chart:SfChart.Series>
-                                        <chart:RangeAreaSeries  x:Name="chart1" 
-                                                                     ItemsSource="{Binding PracticeResults}" XBindingPath="Date" High="MaxTime" Low="MinTime"/>
+
+                                        <chart:RangeAreaSeries 
+                                            ItemsSource="{Binding PracticeResults}" XBindingPath="Date" High="MaxTime" Low="MinTime"
+                                            Color="{DynamicResource PrimaryColor}">
+                                            <chart:RangeAreaSeries.DataMarker>
+                                                <chart:ChartDataMarker 
+                                                    ShowLabel="False"
+                                                    ShowMarker="True"
+                                                    MarkerType="Diamond"
+                                                    MarkerWidth="5" 
+                                                    MarkerHeight="5"/>
+                                            </chart:RangeAreaSeries.DataMarker>
+                                        </chart:RangeAreaSeries>
                                     </chart:SfChart.Series>
+  
                                 </chart:SfChart>
                             </cardLayout:SfCardView>
                         </DataTemplate>
@@ -121,7 +142,48 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate>
                             <cardLayout:SfCardView BackgroundColor="{DynamicResource Gray-200}">
-                                <Label Text="{Binding Season}" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>
+                                <!--<Label Text="{Binding Season}" HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center"/>-->
+                                <chart:SfChart>
+                                    <chart:SfChart.Title>
+                                        <chart:ChartTitle Text="{Binding Season}"
+                                                          Font="{DynamicResource Montserrat-Regular}"
+                                                          FontSize="9"  
+                                                          Margin="0"/>
+                                    </chart:SfChart.Title>
+
+                                    <chart:SfChart.PrimaryAxis>
+
+                                        <chart:DateTimeCategoryAxis Interval="1" IntervalType="Days"/>
+
+                                    </chart:SfChart.PrimaryAxis>
+
+                                    <chart:SfChart.SecondaryAxis>
+                                        <chart:NumericalAxis LabelCreated="NumericalAxis_LabelCreated"
+                                                             RangePadding="None" >
+                                            <chart:NumericalAxis.Title>
+
+                                                <chart:ChartAxisTitle Text="[mm:ss]" Margin="0" FontSize="8" />
+
+                                            </chart:NumericalAxis.Title>
+                                        </chart:NumericalAxis>
+                                    </chart:SfChart.SecondaryAxis>
+
+                                    <chart:SfChart.Series>
+                                        <chart:LineSeries                                             
+                                            ItemsSource="{Binding RaceResults}" XBindingPath="Date" YBindingPath="Time"
+                                            Color="{DynamicResource PrimaryColor}">
+                                            <chart:LineSeries.DataMarker>
+                                                <chart:ChartDataMarker 
+                                                    ShowLabel="False"
+                                                    ShowMarker="True"
+                                                    MarkerType="Diamond"
+                                                    MarkerWidth="5" 
+                                                    MarkerHeight="5"/>
+                                            </chart:LineSeries.DataMarker>
+                                        </chart:LineSeries>
+                                    </chart:SfChart.Series>
+
+                                </chart:SfChart>
                             </cardLayout:SfCardView>
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
