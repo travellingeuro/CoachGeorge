@@ -114,7 +114,11 @@ namespace SGXC.ViewModels
         private void AddDistanceMethod()
 
         {
-            SetTimes(listofraces.Reps); //Pensar en fijar listofraces.Reps en 1 para NewEvent.Israce=true
+            if (NewEvent.IsRace || listofraces.Reps==0) //Fijar listofraces.Reps en 1 para NewEvent.Israce=true
+            {
+                listofraces.Reps = 1;              
+            }
+            SetTimes(listofraces.Reps); 
 
         }
         private bool CanExecuteAddDistance()

@@ -207,7 +207,7 @@ xmlns:popuplayout="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusi
         <Setter Property="TextAlignment" Value="Center"></Setter>
     </Style>
 
-    <!--Common style for Popup-->
+    <!--Common style for Alert Popup-->
 
     <Style x:Key="PopupStyle" TargetType="popuplayout:PopupView">
         <Setter Property="PopupStyle">
@@ -227,6 +227,31 @@ xmlns:popuplayout="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusi
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!--Common style for Regular Popup-->
+
+    <Style x:Key="PopupStyleRegular" TargetType="popuplayout:PopupView">
+        <Setter Property="PopupStyle">
+            <Setter.Value>
+                <popuplayout:PopupStyle
+                    HeaderBackgroundColor="{DynamicResource PrimaryColor}"
+                    HeaderFontFamily="{StaticResource Montserrat-SemiBold}"
+                    HeaderTextColor="{DynamicResource Gray-White}"
+                    HeaderTextAlignment="Center"
+                    AcceptButtonBackgroundColor ="{DynamicResource PrimaryColor}"
+                    AcceptButtonTextColor="{DynamicResource Gray-White}"
+                    OverlayColor="{DynamicResource Gray-200}"
+                    OverlayOpacity="0.2"
+                    BorderThickness="3"
+                    CornerRadius="25">
+                </popuplayout:PopupStyle>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
 
     <!--Common style for NavigationBar CustomShadowFrame-->
     <Style x:Key="CustomShadowFrame" TargetType="control:CustomShadowFrame">

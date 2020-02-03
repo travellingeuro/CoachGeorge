@@ -146,9 +146,9 @@ namespace SGXC.ViewModels
 
         private async void GetTimesbyRunner()
 
-        {                   
-                TimesByEvent = new List<Time>( await TimeServices.GetListOfTimesbyEventId(Event.Id));
-                IsBusy = false; 
+        {  
+            TimesByEvent = new List<Time>( await TimeServices.GetListOfTimesbyEventId(Event.Id));
+            IsBusy = false; 
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
