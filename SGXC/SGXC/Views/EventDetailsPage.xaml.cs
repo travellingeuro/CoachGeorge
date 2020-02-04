@@ -8,13 +8,15 @@ namespace SGXC.Views
     {
         public EventDetailsPage()
         {
+
             InitializeComponent();
 
             if (Device.RuntimePlatform == Device.UWP || Device.RuntimePlatform == Device.iOS)
             {
                 kanban.HeaderTemplate = kanban.Resources["ExpandedTemplate"] as DataTemplate;
-                
             }
+
+
         }
 
         private void TapGestureRecognizer_Tapped(object sender, EventArgs e)

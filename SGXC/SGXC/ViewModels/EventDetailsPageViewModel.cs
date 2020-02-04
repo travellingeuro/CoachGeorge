@@ -54,8 +54,8 @@ namespace SGXC.ViewModels
         }
 
         private void CreatePdfMethod()
-            
-	    {
+
+        {
             if (RunEvent!=null)
             {
                 PdfServices.CreatePDF(RunEvent.Id);

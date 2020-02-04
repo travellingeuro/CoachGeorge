@@ -8,7 +8,7 @@ namespace SGXC.ViewModels
 
     public class NavigationBarViewModel : BindableBase
     {
-        //public DelegateCommand NavigateHomeCommand { get; set; }
+        
 
         public INavigationService NavigationService { get; }
 
@@ -35,9 +35,6 @@ namespace SGXC.ViewModels
             TeamLogo = AppSettings.TeamLogo;
         }
 
-        //private void NavigateHomeMethod()
-        //{
-        //    throw new NotImplementedException();
-        //}
+
     }
 }

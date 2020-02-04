@@ -54,7 +54,6 @@ namespace SGXC
             containerRegistry.RegisterForNavigation<EventsPage, EventsPageViewModel>();
             containerRegistry.RegisterForNavigation<SetLogoPage, SetLogoPageViewModel>();
             containerRegistry.RegisterForNavigation<EventDetailsPage, EventDetailsPageViewModel>();
-
             containerRegistry.RegisterForNavigation<RunnerStats, RunnerStatsViewModel>();
         }
     }

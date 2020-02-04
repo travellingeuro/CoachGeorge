@@ -35,8 +35,6 @@
     </ContentPage.Resources>
 
     <ContentPage.Content>
-
-
         <StackLayout Padding="0,25,0,10">
             <!--Title-->
             <control:TitleView                     
@@ -60,16 +58,16 @@
             <!--Busy Indicator-->
 
             <StackLayout HorizontalOptions="Center" WidthRequest="120">
-                <busyindicator:SfBusyIndicator  
-                                              AnimationType="ECG"
-                                              ViewBoxHeight="50"
-                                              ViewBoxWidth="50"
-                                              EnableAnimation="True"
-                                              Duration="100"
-                                              Title="Loading events..."
-                                              TextColor="{DynamicResource PrimaryColor}"
-                                              IsVisible="{Binding IsBusy}" 
-                                              IsBusy="{Binding IsBusy}" />
+                <busyindicator:SfBusyIndicator                    
+                    AnimationType="ECG"
+                    ViewBoxHeight="50"
+                    ViewBoxWidth="50"
+                    EnableAnimation="True"
+                    Duration="100"
+                    Title="Loading events..."
+                    TextColor="{DynamicResource PrimaryColor}"
+                    IsVisible="{Binding IsBusy}" 
+                    IsBusy="{Binding IsBusy}" />
             </StackLayout>
 
             <!--Emptylist announcement-->

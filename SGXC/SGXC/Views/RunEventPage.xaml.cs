@@ -17,8 +17,6 @@ namespace SGXC.Views
             if (Width > Height)
             {
                 WatchContainer.Orientation = StackOrientation.Horizontal;
-
-
             }
             else
             {

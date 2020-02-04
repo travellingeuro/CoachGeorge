@@ -7,8 +7,10 @@
              xmlns:kanban="clr-namespace:Syncfusion.SfKanban.XForms;assembly=Syncfusion.SfKanban.XForms"
              xmlns:control="clr-namespace:SGXC.Controls"
              x:Name="Details"
+             Title="Details"
              prism:ViewModelLocator.AutowireViewModel="True"
              NavigationPage.HasNavigationBar="False"
+             Shell.NavBarIsVisible="False"
              BackgroundColor="{DynamicResource Gray-White}"
              x:Class="SGXC.Views.EventDetailsPage">
 
@@ -19,29 +21,22 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
-        <Grid Padding="0,20,0,10" RowSpacing="5">
-        <Grid.RowDefinitions >
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>            
-        </Grid.RowDefinitions>
-        
-        <!--Navigation Menu and activity indicator-->
-        <StackLayout Grid.Row="0">
+
+    <ContentPage.Content>
+        <StackLayout Padding="0,25,0,10">
             <!--Title-->
             <control:TitleView                     
                     BackgroundColor="{DynamicResource PrimaryColor}">
                 <control:TitleView.LeadingView>
                     <StackLayout>
-                    <views:GoBackButton />
-                     <Label 
+                        <views:GoBackButton />
+                        <Label 
                          Style="{StaticResource LabelStyle}"
                          Text="{Binding RunEvent.RaceDate, StringFormat='{0:MMMM, dd}'}"
                          HorizontalOptions="Fill"
                          FontSize="10"
-                         TextColor="{DynamicResource Gray-500}"/>                        
-                    </StackLayout>                   
+                         TextColor="{DynamicResource Gray-500}"/>
+                    </StackLayout>
                 </control:TitleView.LeadingView>
                 <control:TitleView.Content>
                     <StackLayout HorizontalOptions="CenterAndExpand">
@@ -51,7 +46,7 @@
                             LineBreakMode="TailTruncation"
                             MaxLines="2"
                             HorizontalOptions="CenterAndExpand"
-                            Padding="0,8,0,0"/>  
+                            Padding="0,8,0,0"/>
                     </StackLayout>
                 </control:TitleView.Content>
                 <control:TitleView.TrailingView>
@@ -79,78 +74,78 @@
                 TextColor="{DynamicResource PrimaryColor}"
                 IsVisible= "{Binding IsBusy}"
                 IsBusy="{Binding IsBusy}" />
-        </StackLayout>
-
-        <StackLayout Grid.Row="1" 
-                     Padding="8,0"
-                     Orientation="Horizontal"
-                     Spacing="5">
-            <Label               
+            
+            <!--Pdf button-->
+            <StackLayout                 
+                Padding="8,0"
+                Orientation="Horizontal"
+                Spacing="5">
+                <Label               
                 FontFamily="{StaticResource MaterialIcons}" 
                 Text="&#xe415;"
                 FontSize="Large"
                 TextColor="{DynamicResource Gray-Black}"
                 Style="{StaticResource LabelStyle}" 
                 HorizontalOptions="Start">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding CreatePdfCommand}"/>
-                </Label.GestureRecognizers>
-            </Label>
-
-            <Label 
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CreatePdfCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label 
                 Padding="0,5,0,0"
                 Text="Download PDF"
                 LineHeight="1"
                 TextColor="{DynamicResource Gray-Black}"
                 Style="{StaticResource LabelStyle}">
-            </Label>
-
-
-        </StackLayout>
+                </Label>
+            </StackLayout>
             
-            
-        <!--result part-->
-        <StackLayout Grid.Row="2">
-            <control:CustomKanban 
-                x:Name="kanban"                
-                AutoGenerateColumns="True"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                ItemsSource="{Binding Runs}">
-                            
-                <kanban:SfKanban.CardTemplate>
-                    <DataTemplate>
-                        <StackLayout 
-                            WidthRequest="250" 
-                            Orientation="Vertical" 
-                            BackgroundColor="{DynamicResource Gray-100}" 
-                            Padding="10,10,10,10" 
-                            x:Name="Item">
-                            <StackLayout  Orientation="Horizontal">
-                                <Label 
-                                    Style="{StaticResource LabelStyle}"
-                                    TextColor="{DynamicResource Gray-Black}"
-                                    Text="{Binding Runner.Name}"
-                                    HorizontalOptions="StartAndExpand" />
-                                <Label 
-                                    Style="{StaticResource LabelStyle}"
-                                    TextColor="{DynamicResource Gray-Black}"
-                                    Text="{Binding RanTime.Times, StringFormat='{}{0:mm\\:ss\\.f}'}"
-                                    WidthRequest="150"
-                                    FontSize="15"
-                                    LineBreakMode="WordWrap"/>
-                            </StackLayout>
-                        </StackLayout>
-                    </DataTemplate>
-                </kanban:SfKanban.CardTemplate>
-            </control:CustomKanban>            
-        </StackLayout>
-        <!--Ads-->
+            <!--result part-->
+     
+                <StackLayout >
+                    <control:CustomKanban 
+                        x:Name="kanban"       
+                        HeightRequest="350"
+                        AutoGenerateColumns="True"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        ItemsSource="{Binding Runs}">
+                        <kanban:SfKanban.CardTemplate>
+                            <DataTemplate>
+                                <StackLayout 
+                                    WidthRequest="250" 
+                                    Orientation="Vertical" 
+                                    BackgroundColor="{DynamicResource Gray-100}" 
+                                    Padding="10,10,10,10" 
+                                    x:Name="Item">
+                                    <StackLayout  Orientation="Horizontal">
+                                        <Label 
+                                            Style="{StaticResource LabelStyle}"
+                                            TextColor="{DynamicResource Gray-Black}"
+                                            Text="{Binding Runner.Name}"
+                                            HorizontalOptions="StartAndExpand" />
+                                        <Label 
+                                            Style="{StaticResource LabelStyle}"
+                                            TextColor="{DynamicResource Gray-Black}"
+                                            Text="{Binding RanTime.Times, StringFormat='{}{0:mm\\:ss\\.f}'}"
+                                            WidthRequest="150"
+                                            FontSize="15"
+                                            LineBreakMode="WordWrap"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </DataTemplate>
+                        </kanban:SfKanban.CardTemplate>
+                    </control:CustomKanban>
+                </StackLayout>
+
+            <!--Ads-->
         <StackLayout 
-                    Padding="0" 
-                    HorizontalOptions="FillAndExpand" 
-                    VerticalOptions="FillAndExpand">
+            Padding="0" 
+            HorizontalOptions="FillAndExpand" 
+            VerticalOptions="FillAndExpand">
             <control:AdMobView WidthRequest="320" HeightRequest="50" />
         </StackLayout>
-    </Grid>
+    
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

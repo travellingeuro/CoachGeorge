@@ -175,11 +175,11 @@
                                 BackgroundColor="{DynamicResource Gray-100}" 
                                 Padding="10,10,10,10" >
                             <StackLayout  Orientation="Horizontal">
-                                <Label 
-                                        Style="{StaticResource LabelStyle}" 
-                                        TextColor="{DynamicResource Gray-Black}"
-                                        Text="{Binding Runner.Name}"  
-                                        HorizontalOptions="StartAndExpand" />
+                                <Label                                    
+                                    Style="{StaticResource LabelStyle}" 
+                                    TextColor="{DynamicResource Gray-Black}"
+                                    Text="{Binding Runner.Name}"  
+                                    HorizontalOptions="StartAndExpand" />
                                 <Button 
                                         IsVisible="{Binding CanBeSplited}"
                                         Text="Split" 
