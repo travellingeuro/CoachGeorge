@@ -127,7 +127,7 @@
                                         <Label 
                                             Style="{StaticResource LabelStyle}"
                                             TextColor="{DynamicResource Gray-Black}"
-                                            Text="{Binding RanTime.Times, StringFormat='{}{0:mm\\:ss\\.f}'}"
+                                            Text="{Binding RanTime.Times, StringFormat='{}{0:mm\\:ss\\.ff}'}"
                                             WidthRequest="150"
                                             FontSize="15"
                                             LineBreakMode="WordWrap"/>

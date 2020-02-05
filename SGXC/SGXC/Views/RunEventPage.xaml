@@ -24,6 +24,10 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
+
+    
+  
+
     <Grid Padding="0,30,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -31,23 +35,29 @@
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
-
-        <!--Navigation menu and Busy indicator-->
+        <!--Navigation menu -->
         <StackLayout 
             Grid.Column="0" 
             Orientation="Horizontal">
             <views:NavigationBar BackgroundColor="{StaticResource Gray-Black}"
                 Margin="0,-18,10,0" prism:ViewModelLocator.AutowirePartialView="{x:Reference RunEvent}" />
+            <RelativeLayout>
             <busyindicator:SfBusyIndicator 
-                    AnimationType="ECG"
-                    ViewBoxHeight="50"
-                    ViewBoxWidth="50"
-                    EnableAnimation="True"
-                    Duration="0.25"
-                    Title="Loading data..."
-                    TextColor="{DynamicResource PrimaryColor}"
-                    IsVisible= "{Binding IsBusy}"
-                    IsBusy="{Binding IsBusy}" />
+                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.33}" 
+                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.33}"
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                AnimationType="ECG"
+                ViewBoxHeight="50"
+                ViewBoxWidth="50"
+                EnableAnimation="True"
+                Duration="0.25"
+                Title="Loading data..."
+                TextColor="{DynamicResource PrimaryColor}"
+                IsVisible= "{Binding IsBusy}"
+                IsBusy="{Binding IsBusy}" />
+            </RelativeLayout>
+
         </StackLayout>
 
         <!--Watch section-->
@@ -201,4 +211,5 @@
             </kanban:SfKanban>
         </StackLayout>
     </Grid>
+    
 </ContentPage>

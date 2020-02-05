@@ -140,9 +140,8 @@ namespace SGXC.ViewModels
 
         private async void NavigateToEventDetailMethod()
         {
-            //var events = await EventServices.GetEventById(RunningEvent.Id);
             var parameters = new NavigationParameters { { "event", RunningEvent } };
-            await NavigationService.NavigateAsync("EventDetailsPage", parameters);
+            await NavigationService.NavigateAsync("/EventDetailsPage", parameters);
         }
 
         private async void GetTimes(int eventId)
@@ -155,12 +154,22 @@ namespace SGXC.ViewModels
         }
 
         private void StartWatch()
-        {
-            Device.StartTimer(TimeSpan.FromMilliseconds(785), Callback);
-        }
+        {            
+            Device.StartTimer(TimeSpan.FromMilliseconds(50), Callback);
 
+        }
+               
         private bool Callback()
         {
+
+            var timesinceclicked = clickedtime - zerotime;
+            var timenow = DateTime.Now - zerotime;
+            Time = timenow - timesinceclicked;
+
+            if (IsRunning==false)
+            {
+                Time = new TimeSpan (0, 0, 0);
+            }
 
             if (Total == 0)
             {
@@ -168,16 +177,11 @@ namespace SGXC.ViewModels
             }
 
             if (IsLegFinished == true)
-
-            {
-                IsLegFinished = false;
+            {                
+                IsLegFinished = false;                
                 return false;
             }
 
-
-            var timesinceclicked = clickedtime - zerotime;
-            var timenow = DateTime.Now - zerotime;
-            Time = timenow - timesinceclicked;
             return IsRunning;
         }
 
@@ -194,9 +198,8 @@ namespace SGXC.ViewModels
         }
 
         private void StopMethod()
-        {
-            IsRunning = false;
-            Time = new TimeSpan(0, 0, 0);
+        {             
+            IsRunning = false;            
         }
 
         private void FinalizedMethod()
@@ -212,7 +215,7 @@ namespace SGXC.ViewModels
             return Total != 0 && IsRunning == true && IsLegFinished == false;
         }
 
-        private void SplitTimeMethod(object obj)
+        private  void SplitTimeMethod(object obj)
 
         {
             var item = obj as EventWithRunners;
@@ -260,7 +263,7 @@ namespace SGXC.ViewModels
         private void ShowNextLegAlert()
         {
             ShowNextLegPopUp = true;
-            IsLegFinished = false;
+            IsLegFinished = false;            
         }
 
         public void OnNavigatedFrom(INavigationParameters parameters)
