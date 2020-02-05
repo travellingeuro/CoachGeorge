@@ -154,17 +154,18 @@
                             Watermark="Distance"
                             DataSource="{Binding RaceList}">
                                 <combobox:SfComboBox.DropDownButtonSettings>
-                                    <combobox:DropDownButtonSettings Width="30" 
-                                                                 Height="30">
+                                    <combobox:DropDownButtonSettings 
+                                        Width="30" 
+                                        Height="30">
                                         <combobox:DropDownButtonSettings.View>
                                             <Label
-                                            Margin="0"
-                                            FontFamily="{StaticResource FontIcons}"
-                                            FontSize="25"
-                                            HorizontalTextAlignment="Center"
-                                            Text="{StaticResource DropDownButtonIcon}"
-                                            TextColor="{DynamicResource Gray-600}"
-                                            VerticalTextAlignment="Center" />
+                                                Margin="0"
+                                                FontFamily="{StaticResource FontIcons}"
+                                                FontSize="25"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{StaticResource DropDownButtonIcon}"
+                                                TextColor="{DynamicResource Gray-600}"
+                                                VerticalTextAlignment="Center" />
                                         </combobox:DropDownButtonSettings.View>
                                     </combobox:DropDownButtonSettings>
                                 </combobox:SfComboBox.DropDownButtonSettings>

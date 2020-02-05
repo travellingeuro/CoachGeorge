@@ -8,6 +8,7 @@ namespace SGXC.Views
         {
             InitializeComponent();
             editor.Save(".jpg", new Size(48, 48));
+            editor.SetToolbarItemVisibility("Reset,Undo,Redo", false);
 
         }
     }
