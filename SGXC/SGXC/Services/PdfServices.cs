@@ -101,7 +101,7 @@ namespace SGXC.Services
                 }
             });
 
-            var items = dataSource.Items;            
+            var items = dataSource.Items;
 
             { 
                 foreach (var item in dataSource.Groups)
@@ -117,13 +117,13 @@ namespace SGXC.Services
                     dataTable.Columns.Add("Distance");
                     dataTable.Columns.Add("Time");
                     var laps = item.Items as IEnumerable<EventWithRunners>;
-                    foreach (var lap in laps)
+                    foreach (var lap in laps) //May consider order by time
                     {
                         dataTable.Rows.Add(new Object[] { lap.Runner.Name, lap.RanTime.Distance, lap.RanTime.Times.ToString(@"mm\:ss\.ff") });
                     }
 
                     pdfGrid.DataSource = dataTable;
-                    pdfGrid.ApplyBuiltinStyle(PdfGridBuiltinStyle.GridTable4Accent2);
+                    pdfGrid.ApplyBuiltinStyle(PdfGridBuiltinStyle.GridTable4Accent6);
                     layoutResult = pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(0, layoutResult.Bounds.Bottom));
                 }
 

@@ -27,7 +27,7 @@ namespace SGXC.Models
         }
 
         private List<string> racelist = new List<string> { "100m", "200m", "300m", "400m (1/4 mile)", "600m" ,"800m (1/2 mile)",
-                                                        "1K","1.2K","1.5K","1 mile","2K", "2 mile"};
+                                                        "1K","1.2K","1.5K","1 mile","2K", "2 miles", "3 miles", "5K", "10K"};
         public List<string> RaceList
         {
             get { return racelist; }
