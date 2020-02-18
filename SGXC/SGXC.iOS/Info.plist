@@ -31,7 +31,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>Coach George</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.appname</string>
+	<string>com.travelling.coachgeorge</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>CFBundleIconFiles</key>
