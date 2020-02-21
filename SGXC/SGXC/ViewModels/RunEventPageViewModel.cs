@@ -155,8 +155,7 @@ namespace SGXC.ViewModels
 
         private void StartWatch()
         {            
-            Device.StartTimer(TimeSpan.FromMilliseconds(50), Callback);
-
+            Device.StartTimer(TimeSpan.FromMilliseconds(750), Callback);
         }
                
         private bool Callback()
@@ -164,7 +163,10 @@ namespace SGXC.ViewModels
 
             var timesinceclicked = clickedtime - zerotime;
             var timenow = DateTime.Now - zerotime;
-            Time = timenow - timesinceclicked;
+            //Show in Main Theard
+            Device.BeginInvokeOnMainThread(() => { Time = timenow - timesinceclicked; });
+
+           
 
             if (IsRunning==false)
             {

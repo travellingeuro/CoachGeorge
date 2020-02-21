@@ -79,7 +79,7 @@
 
 
                 <gauge:SfDigitalGauge 
-                    Value="{Binding Time,StringFormat='{}{0:mm\\:ss\\.ff}' }" 
+                    Value="{Binding Time,StringFormat='{}{0:mm\\:ss\\.f}' }" 
                     SegmentStrokeWidth="2" 
                     BackgroundColor="{DynamicResource Gray-Black}"
                     CharacterStrokeColor="{DynamicResource Gray-White}"
