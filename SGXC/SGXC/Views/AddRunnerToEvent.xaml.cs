@@ -37,7 +37,7 @@ namespace SGXC.Views
 
         private void Runnerlist_Loaded(object sender, Syncfusion.ListView.XForms.ListViewLoadedEventArgs e)
         {
-            runnerlist.CollapseAll();
+            runnerlist.ExpandAll();
         }
     }
 }
