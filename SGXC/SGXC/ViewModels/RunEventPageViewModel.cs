@@ -154,7 +154,8 @@ namespace SGXC.ViewModels
         }
 
         private void StartWatch()
-        {            
+        {   
+            
             Device.StartTimer(TimeSpan.FromMilliseconds(750), Callback);
         }
                

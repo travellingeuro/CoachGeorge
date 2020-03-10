@@ -14884,73 +14884,91 @@ namespace SGXC.Droid
 			public const int reset = 2131558497;
 			
 			// aapt resource value: 0x7F0D0062
-			public const int save = 2131558498;
+			public const int s1 = 2131558498;
 			
 			// aapt resource value: 0x7F0D0063
-			public const int saving = 2131558499;
+			public const int s2 = 2131558499;
 			
 			// aapt resource value: 0x7F0D0064
-			public const int search_menu_title = 2131558500;
+			public const int s3 = 2131558500;
 			
 			// aapt resource value: 0x7F0D0065
-			public const int sfcalendar_inlineviewalldaytext = 2131558501;
+			public const int s4 = 2131558501;
 			
 			// aapt resource value: 0x7F0D0066
-			public const int sfcalendar_inlineviewnoappointmenttext = 2131558502;
+			public const int s5 = 2131558502;
 			
 			// aapt resource value: 0x7F0D0067
-			public const int sfchart_close_label = 2131558503;
+			public const int s6 = 2131558503;
 			
 			// aapt resource value: 0x7F0D0068
-			public const int sfchart_decrease_label = 2131558504;
+			public const int save = 2131558504;
 			
 			// aapt resource value: 0x7F0D0069
-			public const int sfchart_high_label = 2131558505;
+			public const int saving = 2131558505;
 			
 			// aapt resource value: 0x7F0D006A
-			public const int sfchart_increase_label = 2131558506;
+			public const int search_menu_title = 2131558506;
 			
 			// aapt resource value: 0x7F0D006B
-			public const int sfchart_low_label = 2131558507;
+			public const int sfcalendar_inlineviewalldaytext = 2131558507;
 			
 			// aapt resource value: 0x7F0D006C
-			public const int sfchart_open_label = 2131558508;
+			public const int sfcalendar_inlineviewnoappointmenttext = 2131558508;
 			
 			// aapt resource value: 0x7F0D006D
-			public const int sfchart_others_label = 2131558509;
+			public const int sfchart_close_label = 2131558509;
 			
 			// aapt resource value: 0x7F0D006E
-			public const int sfchart_total_label = 2131558510;
+			public const int sfchart_decrease_label = 2131558510;
 			
 			// aapt resource value: 0x7F0D006F
-			public const int sfkanban_itemscount_label = 2131558511;
+			public const int sfchart_high_label = 2131558511;
 			
 			// aapt resource value: 0x7F0D0070
-			public const int sfkanban_max_label = 2131558512;
+			public const int sfchart_increase_label = 2131558512;
 			
 			// aapt resource value: 0x7F0D0071
-			public const int sfkanban_min_label = 2131558513;
+			public const int sfchart_low_label = 2131558513;
 			
 			// aapt resource value: 0x7F0D0072
-			public const int sfnumericupdown_decrement_button_accessibility_label = 2131558514;
+			public const int sfchart_open_label = 2131558514;
 			
 			// aapt resource value: 0x7F0D0073
-			public const int sfnumericupdown_increment_button_accessibility_label = 2131558515;
+			public const int sfchart_others_label = 2131558515;
 			
 			// aapt resource value: 0x7F0D0074
-			public const int square = 2131558516;
+			public const int sfchart_total_label = 2131558516;
 			
 			// aapt resource value: 0x7F0D0075
-			public const int status_bar_notification_info_overflow = 2131558517;
+			public const int sfkanban_itemscount_label = 2131558517;
 			
 			// aapt resource value: 0x7F0D0076
-			public const int title = 2131558518;
+			public const int sfkanban_max_label = 2131558518;
 			
 			// aapt resource value: 0x7F0D0077
-			public const int w = 2131558519;
+			public const int sfkanban_min_label = 2131558519;
 			
 			// aapt resource value: 0x7F0D0078
-			public const int week = 2131558520;
+			public const int sfnumericupdown_decrement_button_accessibility_label = 2131558520;
+			
+			// aapt resource value: 0x7F0D0079
+			public const int sfnumericupdown_increment_button_accessibility_label = 2131558521;
+			
+			// aapt resource value: 0x7F0D007A
+			public const int square = 2131558522;
+			
+			// aapt resource value: 0x7F0D007B
+			public const int status_bar_notification_info_overflow = 2131558523;
+			
+			// aapt resource value: 0x7F0D007C
+			public const int title = 2131558524;
+			
+			// aapt resource value: 0x7F0D007D
+			public const int w = 2131558525;
+			
+			// aapt resource value: 0x7F0D007E
+			public const int week = 2131558526;
 			
 			static String()
 			{
