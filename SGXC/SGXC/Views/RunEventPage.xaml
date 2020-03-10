@@ -1,20 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                 xmlns:kanban="clr-namespace:Syncfusion.SfKanban.XForms;assembly=Syncfusion.SfKanban.XForms"
-                 xmlns:gauge="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
-                 xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                 xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-                 xmlns:views="clr-namespace:SGXC.Views"
-                 xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
+             xmlns:kanban="clr-namespace:Syncfusion.SfKanban.XForms;assembly=Syncfusion.SfKanban.XForms"
+             xmlns:gauge="clr-namespace:Syncfusion.SfGauge.XForms;assembly=Syncfusion.SfGauge.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             xmlns:views="clr-namespace:SGXC.Views"
+             xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:gradient="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
-                 x:Class="SGXC.Views.RunEventPage" 
-                 x:Name="RunEvent"
-                 NavigationPage.HasNavigationBar="False"
-                 BackgroundColor="{DynamicResource Gray-Black}"
-                 SizeChanged="RunEvent_SizeChanged"
-                 Title="Run Event">
+             x:Class="SGXC.Views.RunEventPage" 
+             x:Name="RunEvent"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{DynamicResource Gray-Black}"             
+             Title="Run Event">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -41,23 +40,6 @@
             Orientation="Horizontal">
             <views:NavigationBar BackgroundColor="{StaticResource Gray-Black}"
                 Margin="0,-18,10,0" prism:ViewModelLocator.AutowirePartialView="{x:Reference RunEvent}" />
-            <RelativeLayout>
-            <busyindicator:SfBusyIndicator 
-                RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.33}" 
-                RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=0.33}"
-                VerticalOptions="CenterAndExpand"
-                HorizontalOptions="CenterAndExpand"
-                AnimationType="ECG"
-                ViewBoxHeight="50"
-                ViewBoxWidth="50"
-                EnableAnimation="True"
-                Duration="0.25"
-                Title="Loading data..."
-                TextColor="{DynamicResource PrimaryColor}"
-                IsVisible= "{Binding IsBusy}"
-                IsBusy="{Binding IsBusy}" />
-            </RelativeLayout>
-
         </StackLayout>
 
         <!--Watch section-->
@@ -76,8 +58,6 @@
                 <!--popupwindows-->
                 <views:NextLegPopup  />
                 <views:EndPopup   />
-
-
                 <gauge:SfDigitalGauge 
                     Value="{Binding Time,StringFormat='{}{0:mm\\:ss\\.f}' }" 
                     SegmentStrokeWidth="2" 
@@ -129,13 +109,7 @@
 
                 </StackLayout>
 
-                <!--<buttons:SfButton 
-                    Style="{StaticResource SfButtonStyle}"
-                    Text="View Results" BackgroundColor="Green"
-                    IsVisible="{Binding IsResultsVisible}"
-                    Command="{Binding NavigateToEventDetailsCommand}" 
-                    HorizontalOptions="StartAndExpand" 
-                    Margin="10,0,0,0"/>-->
+ 
                 <StackLayout Orientation="Vertical">
                     <buttons:SfButton                          
                         HorizontalOptions="Start"
@@ -159,17 +133,27 @@
 
                 </StackLayout>
 
-                <!--<buttons:SfButton 
-                    Text="Finalize" BackgroundColor="Red"
-                    Command="{Binding FinalizedCommnad}" 
-                    Margin="10,0,0,0" 
-                    HorizontalOptions="EndAndExpand"/>-->
 
             </StackLayout>
         </StackLayout>
 
         <!--result part-->
         <StackLayout Grid.Row="2">
+           
+                <busyindicator:SfBusyIndicator                
+                VerticalOptions="CenterAndExpand"
+                HorizontalOptions="CenterAndExpand"
+                AnimationType="ECG"
+                ViewBoxHeight="50"
+                ViewBoxWidth="50"
+                EnableAnimation="True"
+                Duration="0.25"
+                Title="Loading data..."
+                TextColor="{DynamicResource PrimaryColor}"
+                IsVisible= "{Binding IsBusy}"
+                IsBusy="{Binding IsBusy}" />
+            
+
             <kanban:SfKanban 
                     x:Name="KanBan"
                     AutoGenerateColumns="True"
@@ -179,32 +163,29 @@
                 <kanban:SfKanban.CardTemplate>
                     <DataTemplate>
                         <StackLayout 
-                                x:Name="Item"
-                                WidthRequest="250" 
+                                x:Name="Item"                               
                                 Orientation="Vertical" 
                                 BackgroundColor="{DynamicResource Gray-100}" 
                                 Padding="10,10,10,10" >
-                            <StackLayout  Orientation="Horizontal">
+                            
                                 <Label                                    
                                     Style="{StaticResource LabelStyle}" 
                                     TextColor="{DynamicResource Gray-Black}"
                                     Text="{Binding Runner.Name}"  
                                     HorizontalOptions="StartAndExpand" />
                                 <Button 
-                                        IsVisible="{Binding CanBeSplited}"
-                                        Text="Split" 
-                                        Command="{Binding Path=BindingContext.SplitTimeCommand, Source={x:Reference KanBan}}" 
-                                        CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
-                            </StackLayout>
-                            <StackLayout  Orientation="Horizontal">
+                                    IsVisible="{Binding CanBeSplited}"
+                                    Text="Split" 
+                                    Command="{Binding Path=BindingContext.SplitTimeCommand, Source={x:Reference KanBan}}" 
+                                    CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
+                            
+                            
                                 <Label 
-                                        Style="{StaticResource LabelStyle}" 
-                                        TextColor="{DynamicResource Gray-Black}"
-                                        Text="{Binding RanTime.Times, StringFormat='{}{0:mm\\:ss\\.ff}'}" 
-                                        WidthRequest="150" 
-                                        FontSize="15" 
-                                        LineBreakMode="WordWrap"/>
-                            </StackLayout>
+                                    Style="{StaticResource LabelStyle}" 
+                                    TextColor="{DynamicResource Gray-Black}"
+                                    Text="{Binding RanTime.Times, StringFormat='{}{0:mm\\:ss\\.ff}'}"                                     
+                                    FontSize="15" />
+                            
                         </StackLayout>
                     </DataTemplate>
                 </kanban:SfKanban.CardTemplate>

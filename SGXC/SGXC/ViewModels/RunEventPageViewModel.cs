@@ -8,9 +8,15 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+
+
 
 namespace SGXC.ViewModels
 {
+    //assembly entry for tests
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public class RunEventPageViewModel : BindableBase, INavigatedAware
     {
         INavigationService NavigationService { get; set; }
@@ -22,7 +28,7 @@ namespace SGXC.ViewModels
         public DelegateCommand NavigateToEventDetailsCommand { get; set; }
 
 
-        private readonly DateTime zerotime = DateTime.MinValue;
+       
         private DateTime clickedtime;
 
         private TimeSpan time = new TimeSpan(0, 0, 0);
@@ -154,14 +160,17 @@ namespace SGXC.ViewModels
         }
 
         private void StartWatch()
-        {   
-            
-            Device.StartTimer(TimeSpan.FromMilliseconds(750), Callback);
+        {
+            //Go back to this
+            //Device.StartTimer(TimeSpan.FromMilliseconds(750), Callback);
+            //Testing
+            Device.BeginInvokeOnMainThread(() => Device.StartTimer(TimeSpan.FromMilliseconds(750), Callback));
+
         }
                
         private bool Callback()
         {
-
+            DateTime zerotime = DateTime.MinValue;
             var timesinceclicked = clickedtime - zerotime;
             var timenow = DateTime.Now - zerotime;
             //Show in Main Theard

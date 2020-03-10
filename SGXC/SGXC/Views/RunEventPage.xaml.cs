@@ -11,17 +11,6 @@ namespace SGXC.Views
 
         }
 
-        private void RunEvent_SizeChanged(object sender, System.EventArgs e)
-        {
-            //Landscape
-            if (Width > Height)
-            {
-                WatchContainer.Orientation = StackOrientation.Horizontal;
-            }
-            else
-            {
-                WatchContainer.Orientation = StackOrientation.Vertical;
-            }
-        }
+        
     }
 }
