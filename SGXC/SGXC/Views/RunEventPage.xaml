@@ -8,6 +8,9 @@
              xmlns:views="clr-namespace:SGXC.Views"
              xmlns:busyindicator="clr-namespace:Syncfusion.SfBusyIndicator.XForms;assembly=Syncfusion.SfBusyIndicator.XForms"
              xmlns:gradient="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms"
+             xmlns:listview="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:data="clr-namespace:Syncfusion.DataSource;assembly=Syncfusion.DataSource.Portable"
+             xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="SGXC.Views.RunEventPage" 
              x:Name="RunEvent"
@@ -154,7 +157,7 @@
                 IsBusy="{Binding IsBusy}" />
             
 
-            <kanban:SfKanban 
+            <!--<kanban:SfKanban 
                     x:Name="KanBan"
                     AutoGenerateColumns="True"
                     HorizontalOptions="FillAndExpand"
@@ -177,19 +180,102 @@
                                     IsVisible="{Binding CanBeSplited}"
                                     Text="Split" 
                                     Command="{Binding Path=BindingContext.SplitTimeCommand, Source={x:Reference KanBan}}" 
-                                    CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
-                            
-                            
+                                    CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>  
                                 <Label 
                                     Style="{StaticResource LabelStyle}" 
                                     TextColor="{DynamicResource Gray-Black}"
                                     Text="{Binding RanTime.Times, StringFormat='{}{0:mm\\:ss\\.ff}'}"                                     
                                     FontSize="15" />
-                            
                         </StackLayout>
                     </DataTemplate>
                 </kanban:SfKanban.CardTemplate>
-            </kanban:SfKanban>
+            </kanban:SfKanban>-->
+
+
+            <listview:SfListView 
+                x:Name="runlistview" 
+                ItemsSource="{Binding Runs}"
+                ItemSpacing="5"
+                
+                AllowGroupExpandCollapse="True"
+                GroupExpanding="Runlistview_GroupExpanding"
+                Loaded="Runlistview_Loaded"
+                IsStickyGroupHeader="True">
+                <listview:SfListView.DataSource>
+                    <data:DataSource>
+                        <data:DataSource.GroupDescriptors>
+                            <data:GroupDescriptor PropertyName="Category"/>
+                        </data:DataSource.GroupDescriptors>
+                    </data:DataSource>
+                </listview:SfListView.DataSource>
+                <listview:SfListView.GroupHeaderTemplate>
+                    <DataTemplate x:Name="GroupHeaderTemplate">
+                        <border:SfBorder CornerRadius="64" BackgroundColor="{DynamicResource PrimaryColor}" VerticalOptions="Center" HeightRequest="86">
+                            <Label 
+                                Margin="10,0,0,0"
+                                Text="{Binding Key}"
+                                TextColor="{DynamicResource Gray-White}"
+                                Style="{StaticResource LabelStyle}" 
+                                VerticalTextAlignment="Center"/>   
+                        </border:SfBorder>
+                    </DataTemplate>
+                </listview:SfListView.GroupHeaderTemplate>
+                <listview:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout 
+                            Orientation="Horizontal"                            
+                            x:Name="Item"
+                            BackgroundColor="{DynamicResource Gray-100}" 
+                            Padding="10,0" 
+                            VerticalOptions="CenterAndExpand">
+							<Button
+                                HeightRequest="50"                                                                
+                                HorizontalOptions="Start"                                                              
+                                IsVisible="{Binding CanBeSplited}"
+                                Text="Split" 
+                                Command="{Binding Path=BindingContext.SplitTimeCommand, Source={x:Reference runlistview}}" 
+                                CommandParameter="{Binding Source={x:Reference Item}, Path=BindingContext}"/>
+                            
+                            <Label 
+                                Style="{StaticResource LabelStyle}" 
+                                TextColor="{DynamicResource Gray-Black}"
+                                Text="{Binding Runner.Name}"  
+                                LineBreakMode="TailTruncation"
+                                HorizontalOptions="StartAndExpand" />                            
+
+							<Label 
+                                HorizontalOptions="End"
+                                Style="{StaticResource LabelStyle}" 
+                                TextColor="{DynamicResource Gray-Black}"
+                                Text="{Binding RanTime.Times, StringFormat='{}{0:mm\\:ss\\.ff}'}"
+                                FontSize="12" />
+                           
+                        </StackLayout>
+
+
+                    </DataTemplate>
+                </listview:SfListView.ItemTemplate>
+            </listview:SfListView>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </StackLayout>
     </Grid>
     

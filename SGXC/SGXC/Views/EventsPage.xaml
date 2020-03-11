@@ -88,8 +88,8 @@
                     ItemSpacing="10"
                     ItemSize="80"
                     AllowGroupExpandCollapse="True"
-                    GroupExpanding="evenlist_GroupExpanding"
-                    Loaded="evenlist_Loaded"
+                    GroupExpanding="Evenlist_GroupExpanding"
+                    Loaded="Evenlist_Loaded"
                     behaviours:ItemTappedCommandListView.ItemTappedCommand="{Binding MenuItemSelectedCommand}">
                     <listview:SfListView.DataSource>
                         <data:DataSource>
@@ -109,19 +109,20 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <Label Margin="10,0,0,0"
-                                               Text="{Binding Key,Converter={x:StaticResource BooleantoHeaderConverter}}"
-                                               TextColor="{DynamicResource Gray-White}"
-                                               Style="{StaticResource LabelStyle}" VerticalTextAlignment="Center"/>
+                                            <Label 
+                                                Margin="10,0,0,0"
+                                                Text="{Binding Key,Converter={x:StaticResource BooleantoHeaderConverter}}"
+                                                TextColor="{DynamicResource Gray-White}"
+                                                Style="{StaticResource LabelStyle}" VerticalTextAlignment="Center"/>
                                             <Label
-                                            Grid.Column="2"
-                                            Margin="0"
-                                            FontFamily="{StaticResource FontIcons}"
-                                            FontSize="25"
-                                            HorizontalTextAlignment="Center"
-                                            Text="{StaticResource DropDownButtonIcon}"
-                                            TextColor="{DynamicResource Gray-600}"
-                                            VerticalTextAlignment="Center" />
+                                                Grid.Column="2"
+                                                Margin="0"
+                                                FontFamily="{StaticResource FontIcons}"
+                                                FontSize="25"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{StaticResource DropDownButtonIcon}"
+                                                TextColor="{DynamicResource Gray-600}"
+                                                VerticalTextAlignment="Center" />
                                         </Grid>
                                     </border:SfBorder>
                                 </ViewCell.View>

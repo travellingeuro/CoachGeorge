@@ -12,7 +12,7 @@ namespace SGXC.Views
             InitializeComponent();
         }
 
-        private void evenlist_GroupExpanding(object sender, Syncfusion.ListView.XForms.GroupExpandCollapseChangingEventArgs e)
+        private void Evenlist_GroupExpanding(object sender, Syncfusion.ListView.XForms.GroupExpandCollapseChangingEventArgs e)
         {
             if (e.Groups.Count > 0)
             {
@@ -33,10 +33,9 @@ namespace SGXC.Views
 
         }
 
-        private void evenlist_Loaded(object sender, Syncfusion.ListView.XForms.ListViewLoadedEventArgs e)
+        private void Evenlist_Loaded(object sender, Syncfusion.ListView.XForms.ListViewLoadedEventArgs e)
         {
             evenlist.CollapseAll();
-
         }
 
 
