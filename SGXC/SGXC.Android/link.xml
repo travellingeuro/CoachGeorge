@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<linker>
+ 
+
+  <!-- Here's our more specific winner! -->
+  <assembly fullname="Xamarin.Android.Support.v7.AppCompat">
+    <type fullname="Android.Support.V7.Widget.FitWindowsLinearLayout" />
+  </assembly>
+</linker>
