@@ -27,7 +27,7 @@
 		<string>Montserrat-SemiBold.ttf</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>11.2</string>
 	<key>CFBundleDisplayName</key>
 	<string>Coach George</string>
 	<key>CFBundleIdentifier</key>

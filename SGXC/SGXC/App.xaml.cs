@@ -1,5 +1,6 @@
 using Prism;
 using Prism.Ioc;
+using Prism.Unity;
 using SGXC.Services;
 using SGXC.ViewModels;
 using SGXC.Views;
@@ -9,7 +10,7 @@ using Xamarin.Forms.Xaml;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace SGXC
 {
-    public partial class App
+    public partial class App 
     {
 
         /* 

@@ -168,7 +168,7 @@
                                     WidthRequest="90">
                                         <badge:SfBadgeView.Content>
                                             <Label  
-                                                Text="Not Ran:"
+                                                Text="Not Run:"
                                                 FontSize="12"
                                                 TextColor="{DynamicResource Gray-900}"
                                                 Style="{StaticResource LabelStyle}"/>

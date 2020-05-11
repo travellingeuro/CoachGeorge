@@ -21,7 +21,7 @@ namespace SGXC.Converters
                 }
                 else
                 {
-                    return "Events not ran";
+                    return "Events not run";
                 }
 
             }
