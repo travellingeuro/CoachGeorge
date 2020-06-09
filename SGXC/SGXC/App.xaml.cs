@@ -10,7 +10,7 @@ using Xamarin.Forms.Xaml;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace SGXC
 {
-    public partial class App 
+    public partial class App
     {
 
         /* 

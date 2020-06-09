@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
-using Plugin.CurrentActivity;
+
 using Prism;
 using Prism.Ioc;
 using System.Security;
@@ -15,14 +15,14 @@ namespace SGXC.Droid
         [SecurityCritical]
         protected override void OnCreate(Bundle bundle)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTU0ODY4QDMxMzcyZTMzMmUzMEU4QWhNRUEwN05VM2cwaTFzV1RSWk1oemxOYklnbTA4SHpsc3hHTFZiNW89");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjU1NDgxQDMxMzgyZTMxMmUzMG9OcVYwVXVqdE5kNm01UCsrbCtXeXUycjVId1E3TzJGd0RsQkhicGw0enM9");
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, "ca-app-pub-9800707284712065~2057556009");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
-            CrossCurrentActivity.Current.Init(this, bundle);
+            
             global::Xamarin.Forms.Forms.Init(this, bundle);
 
             LoadApplication(new App(new AndroidInitializer()));
@@ -30,7 +30,9 @@ namespace SGXC.Droid
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
-            Plugin.Permissions.PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
