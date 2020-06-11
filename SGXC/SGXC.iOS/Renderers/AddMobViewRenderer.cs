@@ -30,15 +30,15 @@ namespace SGXC.iOS
 		{
 			base.OnElementPropertyChanged(sender, e);
 
-			if (e.PropertyName == nameof(BannerView.AdUnitID))
-				Control.AdUnitID = AppSettings.IOsAdUnitId;
+			if (e.PropertyName == nameof(BannerView.AdUnitId))
+				Control.AdUnitId = AppSettings.IOsAdUnitId;
 		}
 
 		private BannerView CreateBannerView()
 		{
 			var bannerView = new BannerView(AdSizeCons.SmartBannerPortrait)
 			{
-				AdUnitID = AppSettings.IOsAdUnitId,
+				AdUnitId = AppSettings.IOsAdUnitId,
 				RootViewController = GetVisibleViewController()
 			};
 
