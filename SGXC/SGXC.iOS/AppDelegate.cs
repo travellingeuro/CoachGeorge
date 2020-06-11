@@ -21,7 +21,8 @@ using Syncfusion.XForms.iOS.PopupLayout;
 using Syncfusion.XForms.iOS.ProgressBar;
 using Syncfusion.XForms.iOS.TextInputLayout;
 using UIKit;
-
+using Google.MobileAds;
+using System;
 
 namespace SGXC.iOS
 {
@@ -41,8 +42,8 @@ namespace SGXC.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjU1NDgxQDMxMzgyZTMxMmUzMG9OcVYwVXVqdE5kNm01UCsrbCtXeXUycjVId1E3TzJGd0RsQkhicGw0enM9");
-            Google.MobileAds.MobileAds.Configure("ca-app-pub-9800707284712065~3426477994");
-global::Xamarin.Forms.Forms.Init();
+            MobileAds.SharedInstance.Start(CompletionHandler);
+            global::Xamarin.Forms.Forms.Init();
 SfCardLayoutRenderer.Init();
 SfChartRenderer.Init();
             SfSwitchRenderer.Init();
@@ -71,6 +72,9 @@ SfChartRenderer.Init();
 
             return base.FinishedLaunching(app, options);
         }
+
+        private void CompletionHandler(InitializationStatus status) { }
+
     }
 
     public class iOSInitializer : IPlatformInitializer
