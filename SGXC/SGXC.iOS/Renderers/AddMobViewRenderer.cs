@@ -16,54 +16,56 @@ using Xamarin.Forms.Platform.iOS;
 namespace SGXC.iOS
 {
 	public class AdMobViewRenderer : ViewRenderer<AdMobView, BannerView>
-	{
-		protected override void OnElementChanged(ElementChangedEventArgs<AdMobView> e)
-		{
-			base.OnElementChanged(e);
-			if (Control == null)
-			{
-				SetNativeControl(CreateBannerView());
-			}
-		}
+    {
 
-		protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			base.OnElementPropertyChanged(sender, e);
 
-			if (e.PropertyName == nameof(BannerView.AdUnitId))
-				Control.AdUnitId = AppSettings.IOsAdUnitId;
-		}
+        private BannerView CreateBannerView()
+        {
+            var bannerView = new BannerView(AdSizeCons.SmartBannerPortrait)
+            {
+                AdUnitId = AppSettings.IOsAdUnitId,
+                RootViewController = GetVisibleViewController()
+            };
 
-		private BannerView CreateBannerView()
-		{
-			var bannerView = new BannerView(AdSizeCons.SmartBannerPortrait)
-			{
-				AdUnitId = AppSettings.IOsAdUnitId,
-				RootViewController = GetVisibleViewController()
-			};
+            bannerView.LoadRequest(GetRequest());
 
-			bannerView.LoadRequest(GetRequest());
+            Request GetRequest()
+            {
+                var request = Request.GetDefaultRequest();
+                return request;
+            }
 
-			Request GetRequest()
-			{
-				var request = Request.GetDefaultRequest();
-				return request;
-			}
+            return bannerView;
+        }
 
-			return bannerView;
-		}
+        protected override void OnElementChanged(ElementChangedEventArgs<AdMobView> e)
+        {
+            base.OnElementChanged(e);
+            if (Control == null)
+            {
+                SetNativeControl(CreateBannerView());
+            }
+        }
 
-		private UIViewController GetVisibleViewController()
-		{
-			var windows = UIApplication.SharedApplication.Windows;
-			foreach (var window in windows)
-			{
-				if (window.RootViewController != null)
-				{
-					return window.RootViewController;
-				}
-			}
-			return null;
-		}
-	}
+        protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            base.OnElementPropertyChanged(sender, e);
+
+            if (e.PropertyName == nameof(BannerView.AdUnitId))
+                Control.AdUnitId = AppSettings.IOsAdUnitId;
+        }
+
+        private UIViewController GetVisibleViewController()
+        {
+            var windows = UIApplication.SharedApplication.Windows;
+            foreach (var window in windows)
+            {
+                if (window.RootViewController != null)
+                {
+                    return window.RootViewController;
+                }
+            }
+            return null;
+        }
+    }
 }
