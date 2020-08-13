@@ -75,66 +75,66 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Syncfusion.Xamarin.Buttons">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.Cards">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.Core">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.Expander">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfBadgeView">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfBusyIndicator">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfCalendar">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfChart">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfComboBox">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfGauge">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfImageEditor">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfKanban">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfListView">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfNavigationDrawer">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfNumericUpDown">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfProgressBar">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfRating">
-      <Version>18.1.0.55</Version>
+      <Version>18.2.0.48</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
       <Version>1.5.3.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Ads">
-      <Version>71.1601.1</Version>
+      <Version>71.1601.4</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.6.0.847" />
+    <PackageReference Include="Xamarin.Forms" Version="4.8.0.1269" />
     <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.3" />
     <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.3" />
