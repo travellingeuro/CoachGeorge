@@ -41,7 +41,7 @@ namespace SGXC.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjU1NDgxQDMxMzgyZTMxMmUzMG9OcVYwVXVqdE5kNm01UCsrbCtXeXUycjVId1E3TzJGd0RsQkhicGw0enM9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzA1NjcyQDMxMzgyZTMyMmUzMFpHYS9NcWNCNXI4N2hldnp1UnNpbWNNK1o1dmQ5OU5qU240bURlY2p4L2M9");
             MobileAds.SharedInstance.Start(CompletionHandler);
             global::Xamarin.Forms.Forms.Init();
 SfCardLayoutRenderer.Init();

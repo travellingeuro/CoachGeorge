@@ -15,7 +15,7 @@ namespace SGXC.Droid
         [SecurityCritical]
         protected override void OnCreate(Bundle bundle)
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MjU1NDgxQDMxMzgyZTMxMmUzMG9OcVYwVXVqdE5kNm01UCsrbCtXeXUycjVId1E3TzJGd0RsQkhicGw0enM9");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzA1NjcyQDMxMzgyZTMyMmUzMFpHYS9NcWNCNXI4N2hldnp1UnNpbWNNK1o1dmQ5OU5qU240bURlY2p4L2M9");
             Android.Gms.Ads.MobileAds.Initialize(ApplicationContext, "ca-app-pub-9800707284712065~2057556009");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
