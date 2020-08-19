@@ -23,6 +23,9 @@ using Syncfusion.XForms.iOS.TextInputLayout;
 using UIKit;
 using Google.MobileAds;
 using System;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace SGXC.iOS
 {
@@ -43,9 +46,13 @@ namespace SGXC.iOS
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzA1NjcyQDMxMzgyZTMyMmUzMFpHYS9NcWNCNXI4N2hldnp1UnNpbWNNK1o1dmQ5OU5qU240bURlY2p4L2M9");
             MobileAds.SharedInstance.Start(CompletionHandler);
+            AppCenter.Start("ios=f4a58601-aadc-4d4c-8d0e-356ce00c0e44;" +
+                  "uwp={Your UWP App secret here};" +
+                  "android={Your Android App secret here}",
+                  typeof(Analytics), typeof(Crashes));
             global::Xamarin.Forms.Forms.Init();
-SfCardLayoutRenderer.Init();
-SfChartRenderer.Init();
+            SfCardLayoutRenderer.Init();
+            SfChartRenderer.Init();
             SfSwitchRenderer.Init();
             SfTextInputLayoutRenderer.Init();
             SfImageEditorRenderer.Init();
