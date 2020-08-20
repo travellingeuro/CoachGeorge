@@ -102,16 +102,12 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <ITunesArtwork Include="iTunesArtwork@1x.png" />
-    <ITunesArtwork Include="iTunesArtwork@2x.png" />
     <BundleResource Include="Resources\UIFontIcons.ttf" />
     <BundleResource Include="Resources\Montserrat-Bold.ttf" />
     <BundleResource Include="Resources\Montserrat-Medium.ttf" />
     <BundleResource Include="Resources\Montserrat-Regular.ttf" />
     <BundleResource Include="Resources\Montserrat-SemiBold.ttf" />
     <BundleResource Include="Resources\MaterialIcons-Regular.ttf" />
-    <ITunesArtwork Include="iTunesArtwork%402x" />
-    <ITunesArtwork Include="iTunesArtwork" />
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\1024.png">
