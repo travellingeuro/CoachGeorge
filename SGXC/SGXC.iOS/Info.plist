@@ -25,6 +25,7 @@
 		<string>Montserrat-Medium.ttf</string>
 		<string>Montserrat-Regular.ttf</string>
 		<string>Montserrat-SemiBold.ttf</string>
+		<string>MaterialIcons-Regular.ttf</string>
 	</array>
 	<key>MinimumOSVersion</key>
 	<string>11.2</string>
@@ -60,5 +61,13 @@
 	<string>ca-app-pub-9800707284712065~3426477994</string>
 	<key>GADIsAdManagerApp</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Needed to change the team logo</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Needed to change the team logo</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Needed to change the team logo</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Needed to change the team logo</string>
 </dict>
 </plist>
