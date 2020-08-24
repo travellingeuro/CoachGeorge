@@ -11,7 +11,6 @@
              xmlns:badge="clr-namespace:Syncfusion.XForms.BadgeView;assembly=Syncfusion.SfBadgeView.XForms"
              xmlns:border="clr-namespace:Syncfusion.XForms.Border;assembly=Syncfusion.Core.XForms"
              xmlns:combobox="clr-namespace:Syncfusion.XForms.ComboBox;assembly=Syncfusion.SfComboBox.XForms"
-             xmlns:gradient="clr-namespace:Syncfusion.XForms.Graphics;assembly=Syncfusion.Core.XForms"
              xmlns:control="clr-namespace:SGXC.Controls"
              xmlns:stepProgressBar="clr-namespace:Syncfusion.XForms.ProgressBar;assembly=Syncfusion.SfProgressBar.XForms"
              xmlns:views="clr-namespace:SGXC.Views"
@@ -52,21 +51,6 @@
                 </control:TitleView.TrailingView>
             </control:TitleView>
 
-            <!--Activity indicator-->
-            <StackLayout 
-                    HorizontalOptions="Center" 
-                    WidthRequest="90">
-                <busyindicator:SfBusyIndicator 
-                    AnimationType="ECG"
-                    ViewBoxHeight="50"
-                    ViewBoxWidth="50"
-                    EnableAnimation="True"
-                    Duration="0.5"
-                    Title="Loading data..."
-                    TextColor="{DynamicResource PrimaryColor}"
-                    IsVisible="{Binding IsBusy}" 
-                    IsBusy="{Binding IsBusy}" />
-            </StackLayout>
             <StackLayout>
                 <views:RacePopUp/>
             </StackLayout>
@@ -126,13 +110,26 @@
 
                     </stepProgressBar:SfStepProgressBar>
 
+                    <!--Activity indicator-->
+                    <StackLayout HorizontalOptions="Center" WidthRequest="90">
+                        <busyindicator:SfBusyIndicator 
+                            AnimationType="ECG"
+                            ViewBoxHeight="50"
+                            ViewBoxWidth="50"
+                            EnableAnimation="True"
+                            Duration="0.2"
+                            Title="Loading data..."
+                            TextColor="{DynamicResource PrimaryColor}"
+                            IsVisible="{Binding IsBusy}" 
+                            IsBusy="{Binding IsBusy}" />
+                    </StackLayout>
                 </StackLayout>
 
                 <!--List of races section-->
                 <StackLayout Grid.Row="1">
                     <Grid BindingContext="{Binding ListofRaces}" x:Name="adddistanceentry" >
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="90"/>
                             <ColumnDefinition Width="25"/>
                         </Grid.ColumnDefinitions>

@@ -69,5 +69,7 @@
 	<string>Needed to change the team logo</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Needed to change the team logo</string>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 </dict>
 </plist>
