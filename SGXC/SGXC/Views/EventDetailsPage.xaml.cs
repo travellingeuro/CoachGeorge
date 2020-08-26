@@ -11,10 +11,10 @@ namespace SGXC.Views
 
             InitializeComponent();
 
-            if (Device.RuntimePlatform == Device.UWP || Device.RuntimePlatform == Device.iOS)
-            {
-                kanban.HeaderTemplate = kanban.Resources["ExpandedTemplate"] as DataTemplate;
-            }
+            //if (Device.RuntimePlatform == Device.UWP || Device.RuntimePlatform == Device.iOS)
+            //{
+            //    kanban.HeaderTemplate = kanban.Resources["ExpandedTemplate"] as DataTemplate;                
+            //}
 
 
         }

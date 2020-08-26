@@ -102,6 +102,7 @@
     <Compile Include="Renderers\AddMobViewRenderer.cs" />
     <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
     <Compile Include="Renderers\CalenderDatePickerRenderer.cs" />
+    <Compile Include="Renderers\KanbanCustomRenderer.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
